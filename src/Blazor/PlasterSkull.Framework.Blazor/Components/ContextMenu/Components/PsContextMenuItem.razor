@@ -1,0 +1,20 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsComponentBase
+
+<PsListItem Text="@Text"
+            TextTypo="@TextTypo"
+            Icon="@Icon"
+            Color="Color"
+            HexColor="@HexColor"
+            Selected="@Selected"
+            Disabled="Disabled"
+            Hover="Hover"
+            FullWidth="@FullWidth"
+            TextClass="@TextClass"
+            TextStyle="@TextStyle"
+            OnClick="InternalOnClick"
+            ChildContent="ChildContent ?? null!"
+            Class="@ClassName"
+            Style="@StyleName"
+            UserAttributes="UserAttributes" />

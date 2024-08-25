@@ -1,0 +1,44 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsComponentBase
+
+<div @ref="_selfRef"
+     class="@ClassName"
+     style="@StyleName"
+     tabindex="-1"
+     @attributes="UserAttributes"
+     @onkeydown="OnKeyPress"
+     @ontouchstart:stopPropagation="true"
+     @ontouchend:stopPropagation="true"
+     @ontouchcancel:stopPropagation="true">
+    <CascadingValue Value="this" IsFixed="true">
+        @if (_isMobileSize)
+        {
+            <div class="swipe-button"></div>
+        }
+
+        @if (Settings.ShowMobileHeader && !Settings.Title.IsNullOrEmpty())
+        {
+            <MudHidden Breakpoint="Breakpoint.MdAndUp">
+                <MudStack Row="true"
+                          AlignItems="AlignItems.Center"
+                          Justify="Justify.Center"
+                          Class="mud-primary-lighten py-2">
+                    <MudText Typo="Typo.h4"
+                             Color="Color.Primary">
+                        @Settings.Title
+                    </MudText>
+                </MudStack>
+            </MudHidden>
+        }
+
+        @ChildContent
+    </CascadingValue>
+</div>
+
+<MudOverlay Visible="true"
+            AutoClose="true"
+            DarkBackground="_isMobileSize"
+            ZIndex="_overlayZIndex"
+            OnClosed="OnBackdropClick"
+            Class="@MenuOverlayClassName" />

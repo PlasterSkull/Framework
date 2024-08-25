@@ -1,0 +1,21 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsContextMenuTriggerComponentBase
+
+@if (ShowTriggerBody)
+{
+    <div class="@ClassName"
+         style="@StyleName"
+         @attributes="@UserAttributes"
+         @onclick="OnClick"
+         @onclick:stopPropagation="_clickPropagation"
+         @oncontextmenu="OnClick"
+         @oncontextmenu:stopPropagation="_contextMenuPropagation"
+         @oncontextmenu:preventDefault="_preventContextMenuBehavior">
+        @ChildContent
+    </div>
+}
+else
+{
+    @ChildContent
+}

@@ -1,0 +1,43 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-inline-flex h-min-content">
+    @switch (IconType)
+    {
+        case IconType.Circle:
+            <div class="circle-root @CircleClassName" style="@CircleStyleName">
+                <span class="mud-icon-button-label">
+                    <MudIcon Icon="@Icon"
+                             Title="@Title"
+                             ViewBox="@ViewBox"
+                             Color="@_color" />
+                </span>
+            </div>
+            break;
+        case IconType.CircleButton:
+            <MudIconButton Icon="@Icon"
+                           Disabled="@ButtonDisabled"
+                           DropShadow="@ButtonDropShadow"
+                           Ripple="@ButtonRipple"
+                           ButtonType="@ButtonType"
+                           Color="@_color"
+                           Variant="@ButtonVariant"
+                           OnClick="@OnButtonClick"
+                           ClickPropagation="ButtonClickPropagation"
+                           Style="@CircleStyleName"
+                           Class="@CircleClassName" />
+            break;
+        case IconType.Default:
+        default:
+            <MudIcon Icon="@Icon"
+                     Title="@Title"
+                     Color="@_color"
+                     ViewBox="@ViewBox"
+                     Style="@InnerIconStyleName"
+                     Class="@InnerIconClassName" />
+            break;
+    }
+</div>

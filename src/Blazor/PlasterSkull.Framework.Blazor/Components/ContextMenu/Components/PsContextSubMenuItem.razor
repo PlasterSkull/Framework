@@ -1,0 +1,27 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsContextMenuTriggerComponentBase
+
+<PsContextMenuTrigger Title="@Title"
+                      ActivationEvent="PsContextMenuActivateBehavior.MouseLeftClick"
+                      Origin="Origin"
+                      Disabled="Disabled"
+                      ClickPropagation="ClickPropagation"
+                      IgnoreLongTap="IgnoreLongTap"
+                      FullScreenMobile="FullScreenMobile"
+                      HideMobileHeader="HideMobileHeader"
+                      MenuContent="MenuContent ?? null!"
+                      OnAppearing="OnAppearing"
+                      OnHiding="OnHiding"
+                      ShownClass="@ShownClass"
+                      HiddenClass="@HiddenClass"
+                      UserAttributes="@UserAttributes"
+                      Style="@StyleName"
+                      Class="@ClassName">
+    <ChildContent>
+        <PsContextMenuItem Text="@Text"
+                           Icon="@Icon"
+                           CloseBehavior="PsContextMenuCloseBehavior.KeepOpened"
+                           ChildContent="ChildContent ?? null!" />
+    </ChildContent>
+</PsContextMenuTrigger>

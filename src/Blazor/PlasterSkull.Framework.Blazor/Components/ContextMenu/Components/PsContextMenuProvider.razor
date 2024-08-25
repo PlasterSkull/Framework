@@ -1,0 +1,29 @@
+﻿@namespace PlasterSkull.Framework.Blazor
+
+@inherits PsComponentBase
+
+<div id="ctx-menu-provider"
+     class="@ClassName"
+     style="@StyleName"
+     @attributes="UserAttributes">
+    <MudSwipeArea Sensitivity="50"
+                  OnSwipeEnd="OnSwipeEnd">
+        @{
+            var zIndex = 10000;
+        }
+        <CascadingValue Value="this" IsFixed="true">
+            @foreach (var contextMenu in _contextMenus)
+            {
+                <PsRender @key="contextMenu">
+                    <PsContextMenuInstance Id="@contextMenu.Key"
+                                           X="contextMenu.Value.X"
+                                           Y="contextMenu.Value.Y"
+                                           ZIndex="zIndex += 2"
+                                           Settings="contextMenu.Value.Settings"
+                                           ChildContent="contextMenu.Value.MenuContent ?? null!" />
+                </PsRender>
+            }
+        </CascadingValue>
+    </MudSwipeArea>
+</div>
+
