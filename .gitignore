@@ -396,3 +396,21 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Blazor
+
+runtime.js
+
+**/wwwroot/**/*.css
+**/wwwroot/**/*.*.css
+**/wwwroot/**/*.*.gz
+**/wwwroot/**/*.js
+**/wwwroot/**/*.*.js
+**/wwwroot/**/*.*.gz
+
+**/Components/*.css
+**/Components/**/*.css
+**/Components/*.css.map
+**/Components/**/*.css.map
+**/Components/*.gz
+**/Components/**/*.gz

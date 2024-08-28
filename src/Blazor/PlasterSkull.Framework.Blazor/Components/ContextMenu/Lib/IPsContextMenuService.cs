@@ -1,12 +1,10 @@
-﻿namespace PlasterSkull.Framework.Blazor;
+﻿
+namespace PlasterSkull.Framework.Blazor;
 
 public interface IPsContextMenuService
 {
-    event Action<PsContextMenuOpenArgs>? OnShowRequest;
-    event Action<Guid>? OnHideRequest;
-    event Action<Guid>? OnRenderRequest;
-
-    void Hide(Guid menuId);
-    void Show(PsContextMenuOpenArgs args);
-    void Render(Guid menuId);
+    void SetupProvider(IPsContextMenuProvider psContextMenuProvider);
+    Task<PsContextMenuInstanceObserver> ShowMenuAsync(PsContextMenuOpenArgs args);
+    ValueTask CloseMenuAsync(TagId callerId);
+    ValueTask CloseAllMenusAsync();
 }

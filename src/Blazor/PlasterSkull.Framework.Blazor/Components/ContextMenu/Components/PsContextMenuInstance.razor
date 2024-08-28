@@ -17,19 +17,21 @@
             <div class="swipe-button"></div>
         }
 
-        @if (Settings.ShowMobileHeader && !Settings.Title.IsNullOrEmpty())
+        @if (Options.ShowMobileHeader && !Options.Title.IsNullOrEmpty())
         {
-            <MudHidden Breakpoint="Breakpoint.MdAndUp">
-                <MudStack Row="true"
-                          AlignItems="AlignItems.Center"
-                          Justify="Justify.Center"
-                          Class="mud-primary-lighten py-2">
-                    <MudText Typo="Typo.h4"
-                             Color="Color.Primary">
-                        @Settings.Title
-                    </MudText>
-                </MudStack>
-            </MudHidden>
+            <PsBreakpointResolver>
+                <Mobile>
+                    <MudStack Row="true"
+                              AlignItems="AlignItems.Center"
+                              Justify="Justify.Center"
+                              Class="mud-primary-lighten py-2">
+                        <MudText Typo="Typo.h4"
+                                 Color="Color.Primary">
+                            @Options.Title
+                        </MudText>
+                    </MudStack>
+                </Mobile>
+            </PsBreakpointResolver>
         }
 
         @ChildContent
@@ -40,5 +42,5 @@
             AutoClose="true"
             DarkBackground="_isMobileSize"
             ZIndex="_overlayZIndex"
-            OnClosed="OnBackdropClick"
+            OnClosed="OnOverlayClosed"
             Class="@MenuOverlayClassName" />

@@ -1,0 +1,15 @@
+﻿@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-row align-center">
+    <PsBreakpointResolver>
+        <Mobile>
+            <PsIcon IconType="IconType.CircleButton"
+                    OnButtonClick="OnDrawerTogglerClick" />
+        </Mobile>
+    </PsBreakpointResolver>
+    <MudText Typo="Typo.h3">
+        PlasterSkull Demo
+    </MudText>
+</div>

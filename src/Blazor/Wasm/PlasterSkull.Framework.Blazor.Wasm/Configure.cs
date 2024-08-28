@@ -5,7 +5,7 @@ namespace PlasterSkull.Framework.Blazor.Wasm;
 
 public static class Configure
 {
-    public static WebAssemblyHostBuilder UsePlasterSkullServices(this WebAssemblyHostBuilder builder)
+    public static WebAssemblyHostBuilder UsePlasterSkullWasmServices(this WebAssemblyHostBuilder builder)
     {
         builder.Services.AddSingleton(s => new HostInfo
         {

@@ -1,28 +1,27 @@
 <Project>
+  
+  <!-- Main -->
 
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
   <!-- Nuget -->
   
   <PropertyGroup>
     <Authors>PlasterSkull</Authors>
     <Copyright>(c) PlasterSkull</Copyright>
     
-    <CommonTags>dotnet;Community;Toolkit</CommonTags>
+    <!--<CommonTags>PlasterSkull</CommonTags>-->
     
     <PackageProjectUrl>https://github.com/PlasterSkull/Framework</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/PlasterSkull/Framework/main/build/plaster-skull.png</PackageIconUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
     <RepositoryType>git</RepositoryType>
     
   </PropertyGroup>
-
-  <!--<ItemGroup >
-    <None Include="../../../src/LICENSE">
-      <Pack>true</Pack>
-      <PackagePath></PackagePath>
-      <Visible>True</Visible>
-    </None>
-  </ItemGroup>-->
 
 </Project>

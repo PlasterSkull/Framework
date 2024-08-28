@@ -2,12 +2,25 @@
 
 internal sealed class PsContextMenuService : IPsContextMenuService
 {
+    #region Provider
 
-    public event Action<PsContextMenuOpenArgs>? OnShowRequest;
-    public event Action<Guid>? OnHideRequest;
-    public event Action<Guid>? OnRenderRequest;
+    private IPsContextMenuProvider? _psContextMenuProvider;
 
-    public void Show(PsContextMenuOpenArgs args) => OnShowRequest?.Invoke(args);
-    public void Hide(Guid menuId) => OnHideRequest?.Invoke(menuId);
-    public void Render(Guid menuId) => OnRenderRequest?.Invoke(menuId);
+    public void SetupProvider(IPsContextMenuProvider psContextMenuProvider) =>
+        _psContextMenuProvider = psContextMenuProvider;
+
+    private IPsContextMenuProvider EnsureProviderInitialized() =>
+        _psContextMenuProvider ??
+        throw new InvalidOperationException($"{nameof(IPsContextMenuProvider)} not initialized.");
+
+    #endregion
+
+    public Task<PsContextMenuInstanceObserver> ShowMenuAsync(PsContextMenuOpenArgs args) =>
+        EnsureProviderInitialized().ShowMenuAsync(args);
+
+    public ValueTask CloseMenuAsync(TagId callerId) =>
+        EnsureProviderInitialized().CloseMenuAsync(callerId);
+
+    public ValueTask CloseAllMenusAsync() =>
+        EnsureProviderInitialized().CloseAllMenusAsync();
 }

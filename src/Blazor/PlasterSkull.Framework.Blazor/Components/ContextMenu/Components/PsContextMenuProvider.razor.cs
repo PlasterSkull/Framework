@@ -5,6 +5,7 @@ namespace PlasterSkull.Framework.Blazor;
 
 public partial class PsContextMenuProvider
     : PsComponentBase
+    , IPsContextMenuProvider
     , IBrowserViewportObserver
     , IPsBackButtonObserver
 {
@@ -19,11 +20,13 @@ public partial class PsContextMenuProvider
 
     #region Fields
 
-    private readonly Dictionary<Guid, PsContextMenuInstanceObserver> _contextMenus = [];
+    private readonly SemaphoreSlim _actionLocker = new(1, 1);
+    private readonly List<PsContextMenuInstanceObserver> _contextMenuObservers = [];
     private IDisposable _locationChangingRegistration = null!;
 
     private bool _isMobileSize => Breakpoint is Breakpoint.Xs or Breakpoint.Sm;
-    private bool _closingState;
+    private bool _hasOpenedMenu => _contextMenuObservers.Count > 0;
+    private const int _startZIndex = 10000;
 
     #endregion
 
@@ -31,13 +34,13 @@ public partial class PsContextMenuProvider
 
     protected override CssBuilder? ExtendClassNameBuilder =>
         new CssBuilder()
-            .AddClass("d-none", _contextMenus.Count == 0)
-            .AddClass("d-block w-vw-100 h-vh-100", _contextMenus.Count > 0);
+            .AddClass("d-none", !_hasOpenedMenu)
+            .AddClass("d-block w-vw-100 h-vh-100", _hasOpenedMenu);
 
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
             .AddStyle("position", "fixed".ImportantCssPropertyValue())
-            .AddStyle("z-index", "10000", _contextMenus.Count > 0);
+            .AddStyle("z-index", "10000", _hasOpenedMenu);
 
     #endregion
 
@@ -50,11 +53,8 @@ public partial class PsContextMenuProvider
 
         base.OnInitialized();
 
+        _psContextMenuService.SetupProvider(this);
         _locationChangingRegistration = _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
-
-        _psContextMenuService.OnShowRequest += OnShowRequest;
-        _psContextMenuService.OnRenderRequest += OnRenderRequest;
-        _psContextMenuService.OnHideRequest += OnHideRequest;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -74,11 +74,7 @@ public partial class PsContextMenuProvider
         await base.DisposeAsyncCore();
 
         _locationChangingRegistration.Dispose();
-
-        _psContextMenuService.OnShowRequest -= OnShowRequest;
-        _psContextMenuService.OnRenderRequest -= OnRenderRequest;
-        _psContextMenuService.OnHideRequest -= OnHideRequest;
-
+        _contextMenuObservers.Clear();
         await _browserViewportService.UnsubscribeAsync(this);
         _psBackButtonService.Unsubscribe(this);
     }
@@ -87,33 +83,7 @@ public partial class PsContextMenuProvider
 
     #region External events
 
-    private ValueTask OnLocationChanging(LocationChangingContext context) => CloseAll();
-
-    private void OnShowRequest(PsContextMenuOpenArgs args)
-    {
-        if (args.RenderFragment == null) return;
-
-        _contextMenus.Add(args.MenuId, new PsContextMenuInstanceObserver
-        {
-            Id = args.MenuId,
-
-            X = args.X,
-            Y = args.Y,
-            Settings = args.Settings,
-
-            MenuContent = args.RenderFragment,
-
-            OnHiding = args.OnHiding,
-        });
-
-        this.NotifyStateHasChanged();
-    }
-
-    private void OnRenderRequest(Guid menuId) =>
-        _contextMenus.GetValueOrDefault(menuId)?.Instance?.Render();
-
-    private void OnHideRequest(Guid menuId) =>
-        CloseMenu(menuId).AsTask();
+    private ValueTask OnLocationChanging(LocationChangingContext context) => CloseAllMenusAsync();
 
     #endregion
 
@@ -122,10 +92,10 @@ public partial class PsContextMenuProvider
     private Task OnSwipeEnd(SwipeEventArgs args)
     {
         if (args.SwipeDirection is not SwipeDirection.TopToBottom ||
-            _contextMenus.Count == 0)
+            !_hasOpenedMenu)
             return Task.CompletedTask;
 
-        return CloseMenu(_contextMenus.Last().Key).AsTask();
+        return CloseMenuAsync(_contextMenuObservers.Last().CallerId).AsTask();
     }
 
     #endregion
@@ -143,7 +113,7 @@ public partial class PsContextMenuProvider
     {
         Breakpoint = browserViewportEventArgs.Breakpoint;
 
-        _contextMenus.Clear();
+        _contextMenuObservers.Clear();
 
         this.NotifyStateHasChanged();
         return Task.CompletedTask;
@@ -164,12 +134,12 @@ public partial class PsContextMenuProvider
 
     async ValueTask IPsBackButtonObserver.NotifyBackButtonEventAsync(PsBackButtonEventContext context, CancellationToken ct)
     {
-        if (_contextMenus.Count == 0)
+        if (_contextMenuObservers.Count == 0)
             return;
 
-        var openedMenu = _contextMenus.Last();
+        var openedMenu = _contextMenuObservers.Last();
 
-        await InvokeAsync(() => CloseMenu(openedMenu.Key).AsTask());
+        await InvokeAsync(() => CloseMenuAsync(openedMenu.CallerId).AsTask());
 
         context.RequestComplete();
     }
@@ -181,62 +151,106 @@ public partial class PsContextMenuProvider
     internal Breakpoint Breakpoint { get; private set; }
     public bool IsMobileSize => _isMobileSize;
 
-    internal void RegisterMenuRef(PsContextMenuInstance pSContextMenuInstance)
+    internal void RegisterMenuRef(PsContextMenuInstance psContextMenuInstance)
     {
-        if (!_contextMenus.TryGetValue(pSContextMenuInstance.Id, out var observer))
+        if (_contextMenuObservers.FirstOrDefault(x => x.CallerId == psContextMenuInstance.Options.CallerId) is not { } observer)
             return;
 
-        observer.SetInstance(pSContextMenuInstance);
+        observer.SetInstance(psContextMenuInstance);
     }
 
-    internal bool IsCurrent(Guid menuId) =>
-        _contextMenus.LastOrDefault().Key == menuId;
+    internal bool IsCurrent(TagId menuId) =>
+        _contextMenuObservers.LastOrDefault()?.CallerId == menuId;
 
-    // NOTE (Ivan Stuk)
-    // В CloseMenu и CloseAll есть установка состояний менюшек и рендер после этого. 
-    // Нужно это для анимации скрытия менюшки. Трабл в том, что я не нашёл как сделать анимацию
-    // при уничтожении блока через css, поэтому пришлось прибегнуть к подобному. Delay на 190мс нужен для того,
-    // чтобы отработала анимация сокрытия в 200мс. 10 мс специально оставил, чтобы следующие инструкции выполнились
-    // примерно под конец анимации
-    internal async ValueTask CloseMenu(Guid menuId)
+    public async Task<PsContextMenuInstanceObserver> ShowMenuAsync(PsContextMenuOpenArgs args)
     {
-        if (!_contextMenus.TryGetValue(menuId, out var menu) || _closingState)
-            return;
+        await _actionLocker.WaitAsync();
 
-        _closingState = true;
+        try
+        {
+            if (_contextMenuObservers.FirstOrDefault(x => x.CallerId == args.Options.CallerId) is { } existingObserver)
+                return existingObserver;
 
-        menu.OnHiding?.Invoke().CatchAndLog();
-        menu.Instance?.SetClosedState(render: true).CatchAndLog();
-        await Task.Delay(190);
+            var observer = new PsContextMenuInstanceObserver
+            {
+                Options = args.Options with
+                {
+                    ZIndex = GetNewMaxZIndex()
+                },
+                MenuContent = args.MenuContent,
+            };
+            _contextMenuObservers.Add(observer);
 
-        _contextMenus.Remove(menuId);
-        if (_contextMenus.Count != 0)
-            _contextMenus.GetValueOrDefault(_contextMenus.Last().Key)?.Instance?.Focus();
+            await InvokeAsync(StateHasChanged);
 
-        _closingState = false;
-        StateHasChanged();
+            await observer.WhenInstanceInitialized;
+
+            return observer;
+        }
+        finally
+        {
+            _actionLocker.Release();
+        }
     }
 
-    internal async ValueTask CloseAll()
+    public async ValueTask CloseMenuAsync(TagId menuId)
     {
-        if (_contextMenus.Count == 0 || _closingState)
-            return;
+        await _actionLocker.WaitAsync();
 
-        _closingState = true;
+        try
+        {
+            var observer = _contextMenuObservers.FirstOrDefault(x => x.CallerId == menuId);
+            if (observer == null)
+                return;
 
-        var activeMenu = _contextMenus.Last().Value;
-        await Task.WhenAll(_contextMenus.Values
-            .Except([activeMenu])
-            .Select(x => x.Instance?.SetHiddenState(render: false) ?? ValueTask.CompletedTask)
-            .Concat([activeMenu.Instance?.SetClosedState(render: false) ?? ValueTask.CompletedTask])
-            .Select(x => x.AsTask()));
-        StateHasChanged();
-        await Task.Delay(190);
+            await observer.PlayCloseAnimationAsync();
+            await Task.Delay(190);
+            _contextMenuObservers.Remove(observer);
 
-        _closingState = false;
-        _contextMenus.Clear();
-        StateHasChanged();
+            if (_contextMenuObservers.LastOrDefault() is { } newActiveMenuObserver)
+                _ = newActiveMenuObserver.FocusAsync();
+
+            StateHasChanged();
+            _ = observer.NotifyClosed();
+        }
+        finally
+        {
+            _actionLocker.Release();
+        }
     }
+
+    public async ValueTask CloseAllMenusAsync()
+    {
+        await _actionLocker.WaitAsync();
+
+        try
+        {
+            if (!_hasOpenedMenu)
+                return;
+
+            var activeMenu = _contextMenuObservers.Last();
+            await Task.WhenAll(_contextMenuObservers
+                .Select(x => x.PlayHideAnimationAsync())
+                .Concat([activeMenu.PlayCloseAnimationAsync()]));
+            await Task.Delay(190);
+            _ = Task.WhenAll(_contextMenuObservers.Select(x => x.NotifyClosed()));
+            _contextMenuObservers.Clear();
+            StateHasChanged();
+        }
+        finally
+        {
+            _actionLocker.Release();
+        }
+    }
+
+    #endregion
+
+    #region Private
+
+    private int GetNewMaxZIndex() =>
+        (_contextMenuObservers.Count == 0
+            ? _startZIndex
+            : _contextMenuObservers.Max(x => x.Options.ZIndex)) + 2;
 
     #endregion
 }

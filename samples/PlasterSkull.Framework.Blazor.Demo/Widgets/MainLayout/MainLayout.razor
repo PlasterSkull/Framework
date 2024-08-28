@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="true" />
+<PsContextMenuProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <AppBar OnDrawerTogglerClick="ToggleDrawer" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen"
+               ClipMode="DrawerClipMode.Docked"
+               Breakpoint="Breakpoint.Md">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

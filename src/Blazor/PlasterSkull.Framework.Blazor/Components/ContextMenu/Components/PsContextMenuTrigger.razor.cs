@@ -5,7 +5,7 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
 {
     #region Params
 
-    [Parameter] public bool ShowTriggerBody { get; set; }
+    [Parameter] public bool ShowTriggerBody { get; set; } = true;
 
     #endregion
 
@@ -17,7 +17,9 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
 
     #region UI Fields
 
-    private readonly Guid _menuId = Guid.NewGuid();
+    private PsContextMenuInstanceObserver? _observer;
+    private bool _isOpened =>
+        _observer != null;
 
     private bool _clickPropagation =>
         ActivationEvent is PsContextMenuActivateBehavior.MouseBoth or PsContextMenuActivateBehavior.MouseLeftClick &&
@@ -30,16 +32,14 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
     private bool _preventContextMenuBehavior =>
         ActivationEvent is PsContextMenuActivateBehavior.MouseBoth or PsContextMenuActivateBehavior.MouseRightClick;
 
-    private bool _isOpen;
-
     #endregion
 
     #region Css/Style
 
     protected override CssBuilder? ExtendClassNameBuilder =>
         new CssBuilder()
-            .AddClass(ShownClass, _isOpen)
-            .AddClass(HiddenClass, !_isOpen);
+            .AddClass(ShownClass, _isOpened)
+            .AddClass(HiddenClass, !_isOpened);
 
     #endregion
 
@@ -47,8 +47,8 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
 
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        if (_isOpen)
-            _psContextMenuService.Render(_menuId);
+        if (_isOpened)
+            _ = _observer!.RenderAsync();
 
         return base.SetParametersAsync(parameters);
     }
@@ -64,8 +64,23 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
     {
         await base.DisposeAsyncCore();
 
-        if (_isOpen)
-            _psContextMenuService.Hide(_menuId);
+        if (_isOpened)
+        {
+            _observer!.OnClosed -= OnObserverClosed;
+            _observer = null;
+            _ = _psContextMenuService.CloseMenuAsync(TagId);
+        }
+    }
+
+    #endregion
+
+    #region External events
+
+    private Task OnObserverClosed()
+    {
+        _observer!.OnClosed -= OnObserverClosed;
+        _observer = null;
+        return OnClosed.InvokeAsync();
     }
 
     #endregion
@@ -97,42 +112,32 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
         if (Disabled)
             return;
 
-        await OnAppearing.InvokeAsync();
-
-        _psContextMenuService.Show(new PsContextMenuOpenArgs
+        _observer = await _psContextMenuService.ShowMenuAsync(new PsContextMenuOpenArgs
         {
-            MenuId = _menuId,
-            RenderFragment = MenuContent,
-            X = args.ClientX,
-            Y = args.ClientY,
-            Settings = new()
+            Options = new()
             {
+                CallerId = TagId,
+                X = args.ClientX,
+                Y = args.ClientY,
                 Title = Title,
                 FullScreenMobile = FullScreenMobile,
                 ShowMobileHeader = HideMobileHeader,
                 Origin = Origin,
             },
-            OnHiding = OnMenuHide
+            MenuContent = MenuContent,
         });
+        _observer.OnClosed += OnObserverClosed;
 
-        _isOpen = true;
+        await OnOpened.InvokeAsync();
     }
 
-    public void HideMenu() =>
-        _psContextMenuService.Hide(_menuId);
+    public ValueTask CloseMenuAsync() =>
+        _psContextMenuService.CloseMenuAsync(TagId);
 
-    public void RenderMenu() =>
-        _psContextMenuService.Render(_menuId);
-
-    #endregion
-
-    #region Private Methods
-
-    private Task OnMenuHide()
-    {
-        _isOpen = false;
-        return OnHiding.InvokeAsync();
-    }
+    public Task RenderMenuAsync() =>
+        _isOpened
+            ? _observer!.RenderAsync()
+            : Task.CompletedTask;
 
     #endregion
 }

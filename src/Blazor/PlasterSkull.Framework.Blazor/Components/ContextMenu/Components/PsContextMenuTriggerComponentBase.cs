@@ -16,8 +16,8 @@ public abstract class PsContextMenuTriggerComponentBase : PsComponentBase
     [Parameter] public string? ShownClass { get; set; }
     [Parameter] public string? HiddenClass { get; set; }
 
-    [Parameter] public EventCallback OnHiding { get; set; }
-    [Parameter] public EventCallback OnAppearing { get; set; }
+    [Parameter] public EventCallback OnOpened { get; set; }
+    [Parameter] public EventCallback OnClosed { get; set; }
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? MenuContent { get; set; }

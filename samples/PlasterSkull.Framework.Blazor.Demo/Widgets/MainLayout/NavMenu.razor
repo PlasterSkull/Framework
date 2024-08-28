@@ -1,0 +1,14 @@
+﻿@inherits PsComponentBase
+
+<MudNavMenu UserAttributes="UserAttributes"
+            Style="@StyleName"
+            Class="@ClassName">
+    <MudNavLink Href="@PsNavigationManager.MainRoutes.Home"
+                Match="NavLinkMatch.All">
+        Home
+    </MudNavLink>
+    <MudNavLink Href="@PsNavigationManager.DemoRoutes.ContextMenu"
+                Match="NavLinkMatch.Prefix">
+        Context Menu
+    </MudNavLink>
+</MudNavMenu>

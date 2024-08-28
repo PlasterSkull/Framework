@@ -4,7 +4,7 @@ namespace PlasterSkull.Framework.Blazor.Maui;
 
 public static partial class Configure
 {
-    public static MauiAppBuilder AddEtaiMauiBlazorConfiguration(
+    public static MauiAppBuilder UsePlasterSkulllMauiServices(
         this MauiAppBuilder builder,
         string baseUrl,
         string environment)

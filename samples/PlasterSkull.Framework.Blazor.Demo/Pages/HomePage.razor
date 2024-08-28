@@ -1,0 +1,26 @@
+﻿@using PlasterSkull.Framework.Blazor.Demo.Components
+
+@inherits PsComponentBase
+
+<PageTitle>Home</PageTitle>
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName page d-flex flex-column align-center">
+    <MudText Typo="Typo.h4"
+             Class="mt-16">
+        PlasterSkull
+    </MudText>
+
+    <MudImage Src="plaster-skull.png"
+              Class="mt-4" />
+
+    <MudText Class="mt-4">
+        It's PlasterSkull Components demo. Please write to us on
+        <MudLink Href="@PsNavigationManager.ExternalRoutes.GitHub">github</MudLink> if you find any problems.
+    </MudText>
+    <PsIcon Icon="@Icons.Custom.Brands.GitHub"
+            IconType="IconType.CircleButton"
+            OnButtonClick="_psMavigationManager.NavigateToGitHub"
+            SizeClass="icon-48" />
+</div>

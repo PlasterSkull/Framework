@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PlasterSkull.Framework.Blazor.Infrastructure\PlasterSkull.Framework.Blazor.Infrastructure.csproj" />
   </ItemGroup>
   

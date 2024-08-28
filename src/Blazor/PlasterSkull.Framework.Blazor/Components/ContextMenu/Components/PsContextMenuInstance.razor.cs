@@ -6,13 +6,7 @@ public partial class PsContextMenuInstance : PsComponentBase
 
     [CascadingParameter] private PsContextMenuProvider PsContextMenuProvider { get; set; } = null!;
 
-    [Parameter] public Guid Id { get; set; }
-
-    [Parameter] public double X { get; set; }
-    [Parameter] public double Y { get; set; }
-    [Parameter] public int ZIndex { get; set; }
-
-    [Parameter] public PsContextMenuSettings Settings { get; set; }
+    [Parameter] public PsContextMenuOptions Options { get; set; }
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
@@ -23,9 +17,14 @@ public partial class PsContextMenuInstance : PsComponentBase
     private ElementReference _selfRef;
 
     private bool _isMobileSize => PsContextMenuProvider.IsMobileSize;
-    private bool _isCurrent => PsContextMenuProvider.IsCurrent(Id);
+    private bool _isCurrent => PsContextMenuProvider.IsCurrent(Options.CallerId);
 
-    private int _overlayZIndex => ZIndex - 1;
+    private TagId _callerId => Options.CallerId;    
+    private double _x => Options.X;
+    private double _y => Options.Y;
+    
+    private int _zIndex => Options.ZIndex;  
+    private int _overlayZIndex => _zIndex - 1;
 
     private bool _hidden;
     private bool _closing;
@@ -41,27 +40,27 @@ public partial class PsContextMenuInstance : PsComponentBase
             .AddClass("hidden", _hidden)
             .When(_isMobileSize, mobileSizeBuilder => mobileSizeBuilder
                 .AddClass("flex-column w-100 bottom-0 rounded-t-lg")
-                .AddClass("h-100", Settings.FullScreenMobile))
+                .AddClass("h-100", Options.FullScreenMobile))
             .When(!_isMobileSize, desktopSizeBuilder => desktopSizeBuilder
                 .AddClass("left-0 top-0"));
 
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
             .AddStyle("background-color", "white")
-            .AddStyle("z-index", $"{ZIndex}")
+            .AddStyle("z-index", $"{_zIndex}")
             .When(_isMobileSize, mobileSizeBuilder => mobileSizeBuilder
                 .AddStyle("max-height", "calc(100vh - 48px)"))
             .When(!_isMobileSize, desktopSizeBuilder => desktopSizeBuilder
                 .AddStyle("transform", GetMenuPosition, true));
 
     private string GetMenuPosition() =>
-        Settings.Origin switch
+        Options.Origin switch
         {
-            Origin.BottomRight => $"translateX(min({X}px, calc(100vw - 100%))) translateY(min({Y}px, calc(100vh - 100%)))",
-            Origin.BottomLeft => $"translateX(max(calc({X}px - 100%), 0px)) translateY(min({Y}px, calc(100vh - 100%)))",
-            Origin.TopRight => $"translateX(min({X}px, calc(100vw - 100%))) translateY(max(calc({Y}px - 100%), 0px))",
-            Origin.TopLeft => $"translateX(max(calc({X}px - 100%), 0px)) translateY(max(calc({Y}px - 100%), 0px))",
-            _ => $"translateX(min({X}px, calc(100vw - 100%))) translateY(min({Y}px, calc(100vh - 100%)))"
+            Origin.BottomRight => $"translateX(min({_x}px, calc(100vw - 100%))) translateY(min({_y}px, calc(100vh - 100%)))",
+            Origin.BottomLeft => $"translateX(max(calc({_x}px - 100%), 0px)) translateY(min({_y}px, calc(100vh - 100%)))",
+            Origin.TopRight => $"translateX(min({_x}px, calc(100vw - 100%))) translateY(max(calc({_y}px - 100%), 0px))",
+            Origin.TopLeft => $"translateX(max(calc({_x}px - 100%), 0px)) translateY(max(calc({_y}px - 100%), 0px))",
+            _ => $"translateX(min({_x}px, calc(100vw - 100%))) translateY(min({_y}px, calc(100vh - 100%)))"
         };
 
     private string MenuOverlayClassName =>
@@ -101,73 +100,65 @@ public partial class PsContextMenuInstance : PsComponentBase
     {
         if (args.Key == "Escape")
         {
-            PsContextMenuProvider.CloseMenu(Id).CatchAndLog();
+            PsContextMenuProvider.CloseMenuAsync(_callerId).CatchAndLog();
             return;
         }
     }
 
-    private void OnBackdropClick() =>
-        PsContextMenuProvider.CloseMenu(Id).CatchAndLog();
+    private void OnOverlayClosed() =>
+        PsContextMenuProvider.CloseMenuAsync(_callerId).CatchAndLog();
 
     #endregion
 
     #region Public
 
-    public Task Render() => InvokeAsync(StateHasChanged);
+    public Task RenderAsync() => InvokeAsync(StateHasChanged);
 
-    public Task Focus() =>
+    public Task FocusAsync() =>
         InvokeAsync(async () =>
         {
             await _selfRef.FocusAsync();
             StateHasChanged();
         });
 
+    internal Task PlayHideAnimationAsync()
+    {
+        _hidden = true;
+        return RenderAsync();
+    }
+
+    internal Task PlayCloseAnimationAsync()
+    {
+        _closing = true;
+        return RenderAsync();
+    }
+
     /// <summary>
     /// Обработчик клика итема в контестном меню
     /// </summary>
-    /// <param name="ctxMenuCloseBehavior"></param>
+    /// <param name="contextMenuCloseBehavior"></param>
     /// <returns>
     /// false - если не будет закрыто
     /// true - если будет закрыто
     /// </returns>
-    public bool OnMenuItemClick(PsContextMenuCloseBehavior ctxMenuCloseBehavior)
+    public bool OnMenuItemClick(PsContextMenuCloseBehavior contextMenuCloseBehavior)
     {
-        if (ctxMenuCloseBehavior is PsContextMenuCloseBehavior.KeepOpened)
+        if (contextMenuCloseBehavior is PsContextMenuCloseBehavior.KeepOpened)
             return false;
 
-        if (ctxMenuCloseBehavior is PsContextMenuCloseBehavior.CloseOnlyParent)
+        if (contextMenuCloseBehavior is PsContextMenuCloseBehavior.CloseOnlyParent)
         {
-            PsContextMenuProvider.CloseMenu(Id).CatchAndLog();
+            PsContextMenuProvider.CloseMenuAsync(_callerId).CatchAndLog();
             return true;
         }
 
-        if (ctxMenuCloseBehavior is PsContextMenuCloseBehavior.Close)
+        if (contextMenuCloseBehavior is PsContextMenuCloseBehavior.Close)
         {
-            PsContextMenuProvider.CloseAll().CatchAndLog();
+            PsContextMenuProvider.CloseAllMenusAsync().CatchAndLog();
             return true;
         }
 
         return false;
-    }
-
-    public async ValueTask SetHiddenState(bool render)
-    {
-        _hidden = true;
-
-        if (!render)
-            return;
-
-        await Render();
-    }
-
-    public async ValueTask SetClosedState(bool render)
-    {
-        _closing = true;
-
-        if (!render)
-            return;
-
-        await Render();
     }
 
     #endregion

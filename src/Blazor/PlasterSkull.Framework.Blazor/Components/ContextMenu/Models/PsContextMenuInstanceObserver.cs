@@ -1,18 +1,67 @@
-﻿namespace PlasterSkull.Framework.Blazor;
+﻿using ActualLab.Async;
 
-internal sealed class PsContextMenuInstanceObserver
+namespace PlasterSkull.Framework.Blazor;
+
+public sealed class PsContextMenuInstanceObserver
 {
-    public required Guid Id { get; init; }
+    public TagId CallerId => Options.CallerId;
 
-    public required double X { get; init; }
-    public required double Y { get; init; }
+    public required PsContextMenuOptions Options { get; init; }
 
-    public required PsContextMenuSettings Settings { get; init; }
+    public required RenderFragment MenuContent { get; init; }
 
-    public RenderFragment? MenuContent { get; init; }
-    public PsContextMenuInstance? Instance { get; private set; }
+    #region Initialize instance logic
 
-    public Func<Task>? OnHiding { get; init; }
+    private TaskCompletionSource<PsContextMenuInstance> _whenInstanceInitialized =
+        TaskCompletionSourceExt.New<PsContextMenuInstance>(); 
 
-    public void SetInstance(PsContextMenuInstance? instance) => Instance = instance;
+    public Task<PsContextMenuInstance> WhenInstanceInitialized =>
+        _whenInstanceInitialized.Task;  
+
+    internal void SetInstance(PsContextMenuInstance instance) => 
+        _whenInstanceInitialized.TrySetResult(instance);
+
+    #endregion
+
+    #region Events
+
+    public event Func<Task>? OnClosed;
+
+    internal Task NotifyClosed() =>
+        OnClosed?.Invoke() ?? 
+        Task.CompletedTask;
+
+    #endregion
+
+    #region 
+
+    internal Task RenderAsync() =>
+        WhenInstanceInitialized.ContinueWith(task =>
+        {
+            var instance = task.Result;
+            return instance.RenderAsync();
+        });
+
+    internal Task FocusAsync() =>
+        WhenInstanceInitialized.ContinueWith(task =>
+        {
+            var instance = task.Result;
+            return instance.FocusAsync();
+        });
+
+    internal Task PlayHideAnimationAsync() =>
+        WhenInstanceInitialized.ContinueWith(task =>
+        {
+            var instance = task.Result;
+            return instance.PlayCloseAnimationAsync();
+        });
+
+    internal Task PlayCloseAnimationAsync() =>
+        WhenInstanceInitialized.ContinueWith(task =>
+        {
+            var instance = task.Result;
+            return instance.PlayCloseAnimationAsync();
+        });
+
+    #endregion
 }
