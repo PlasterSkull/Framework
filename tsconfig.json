@@ -8,7 +8,7 @@
     "moduleResolution": "node"
   },
   "include": [
-    "src/**/*"
+    "src/**/wwwroot/**/*"
   ],
   "exclude": [
     "node_modules"

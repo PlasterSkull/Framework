@@ -12,6 +12,7 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
     #region Injects
 
     private readonly ILogger<CodeExampleCacheService> _logger;
+    private readonly IMudThemeService _mudThemeService;
 
     #endregion
 
@@ -25,16 +26,19 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
             .ToFrozenDictionary(
                 f => string.Join('.', f.Split('.').TakeLast(3)),
                 f => f);
+    }
 
-        s_sharedPipeline = new MarkdownPipelineBuilder()
+    public CodeExampleCacheService(
+        ILogger<CodeExampleCacheService> logger,
+        IMudThemeService mudThemeService)
+    {
+        _logger = logger;
+        _mudThemeService = mudThemeService;
+
+        _sharedPipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
             .UseColorCode()
             .Build();
-    }
-
-    public CodeExampleCacheService(ILogger<CodeExampleCacheService> logger)
-    {
-        _logger = logger;
     }
 
     #endregion
@@ -42,8 +46,8 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
     #region Fields
 
     private static readonly FrozenDictionary<string, string> s_resourceFilesMap;
-    private static readonly MarkdownPipeline s_sharedPipeline;
 
+    private readonly MarkdownPipeline _sharedPipeline;
     private readonly ConcurrentDictionary<string, CodeExampleKeeper> _codeExampleKeepers = new();
 
     #endregion
@@ -77,7 +81,7 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
             using var reader = new StreamReader(stream);
             return newCodeExampleKeeper.MarkupString = new(Markdig.Markdown.ToHtml(
                 await reader.ReadToEndAsync(ct),
-                s_sharedPipeline));
+                _sharedPipeline));
         }
         catch(Exception ex) 
         {

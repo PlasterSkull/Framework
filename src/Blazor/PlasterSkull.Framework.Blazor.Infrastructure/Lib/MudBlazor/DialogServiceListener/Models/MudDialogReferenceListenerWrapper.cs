@@ -1,6 +1,6 @@
 ﻿namespace PlasterSkull.Framework.Blazor;
 
-internal class PsDialogReferenceListenerWrapper
+internal class MudDialogReferenceListenerWrapper
 {
     public required IDialogReference DialogReference { get; init; }
     public bool IsBackButtonObserver { get; set; }

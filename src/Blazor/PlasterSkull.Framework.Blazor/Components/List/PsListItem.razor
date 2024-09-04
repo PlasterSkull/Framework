@@ -11,7 +11,7 @@
         <MudStack Row="true"
                   AlignItems="AlignItems.Center"
                   Class="pa-4 px-md-2 py-md-1">
-            @if (string.IsNullOrEmpty(Icon))
+            @if (!Icon.IsNullOrEmpty())
             {
                 <PsIcon Icon="@Icon"
                         IconType="IconType.Circle"

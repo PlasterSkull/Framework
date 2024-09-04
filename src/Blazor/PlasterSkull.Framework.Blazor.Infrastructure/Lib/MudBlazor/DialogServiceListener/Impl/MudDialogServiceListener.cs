@@ -2,17 +2,17 @@
 
 namespace PlasterSkull.Framework.Blazor;
 
-internal sealed class PsDialogServiceListener(
+internal sealed class MudDialogServiceListener(
     IDialogService _dialogService,
     IPsBackButtonService _backButtonService)
-    : IPsDialogServiceListener
+    : IMudDialogServiceListener
     , IPsBackButtonObserver
     , IDisposable
 {
     #region Fields
 
-    private readonly TagId _tagId = TagId.NewWithTagFormatting(nameof(PsDialogServiceListener));
-    private readonly ConcurrentDictionary<Guid, PsDialogReferenceListenerWrapper> _openedDialogs = [];
+    private readonly TagId _tagId = TagId.NewWithTagFormatting(nameof(MudDialogServiceListener));
+    private readonly ConcurrentDictionary<Guid, MudDialogReferenceListenerWrapper> _openedDialogs = [];
 
     #endregion
 
@@ -22,7 +22,7 @@ internal sealed class PsDialogServiceListener(
         Unsubscribe(dialogRef.Id);
 
     private Task<bool> OnDialogInstanceAddedAsync(IDialogReference dialogRef) =>
-        Task.FromResult(_openedDialogs.TryAdd(dialogRef.Id, new PsDialogReferenceListenerWrapper
+        Task.FromResult(_openedDialogs.TryAdd(dialogRef.Id, new MudDialogReferenceListenerWrapper
         {
             DialogReference = dialogRef,
         }));

@@ -8,5 +8,6 @@ public static partial class Configure
         services
             .AddScoped<PsScopedServicesStarter>()
             .AddPlasterSkullBackButtonService()
-            .AddPlasterSkullMudDialogServiceListener();
+            .AddPlasterSkullMudDialogServiceListener()
+            .AddPlasterSkullMudThemeService();
 }

@@ -7,7 +7,7 @@ public partial class PsListItem : PsComponentBase
     [Parameter] public string? Text { get; set; }
     [Parameter] public Typo TextTypo { get; set; } = Typo.body1;
     [Parameter] public string? Icon { get; set; }
-    [Parameter] public Color Color { get; set; } = Color.Primary;
+    [Parameter] public Color Color { get; set; } = Color.Inherit;
     [Parameter] public string? HexColor { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public bool Disabled { get; set; }
@@ -31,19 +31,19 @@ public partial class PsListItem : PsComponentBase
             .AddClass("w-100", FullWidth)
             .AddClass("pointer-events-none", Disabled)
             .AddClass("mud-primary-lighten-hover", Hover)
-            .AddClass("mud-primary-lighten", Selected && (HexColor?.IsNullOrEmpty() ?? false));
+            .AddClass("mud-primary-lighten", Selected && HexColor.IsNullOrEmpty());
 
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
             .AddStyle(
                 "background-color",
-                () => new MudColor(HexColor!).SetAlpha(0.2).ToString(MudColorOutputFormats.HexA),
+                () => new MudColor(HexColor!).SetAlpha(0.2).ToHexA(),
                 Selected && !HexColor.IsNullOrEmpty());
 
     private string TextClassName =>
         new CssBuilder()
             .AddClass("text-ellipsis")
-            .AddClass(Color.GetColorCssClass(), string.IsNullOrEmpty(HexColor))
+            .AddClass(Color.GetColorCssClass(), HexColor.IsNullOrEmpty())
             .AddClass(TextClass)
             .Build();
 

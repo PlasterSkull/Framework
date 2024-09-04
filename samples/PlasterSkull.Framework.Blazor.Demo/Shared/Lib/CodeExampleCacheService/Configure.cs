@@ -3,5 +3,5 @@
 public static class Configure
 {
     public static IServiceCollection AddCodeExampleCacheService(this IServiceCollection services) =>
-        services.AddSingleton<ICodeExampleCacheService, Impl.CodeExampleCacheService>();
+        services.AddScoped<ICodeExampleCacheService, Impl.CodeExampleCacheService>();
 }

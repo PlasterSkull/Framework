@@ -46,7 +46,7 @@ public partial class PsContextMenuInstance : PsComponentBase
 
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
-            .AddStyle("background-color", "white")
+            .AddStyle("background-color", _mudThemeService.Palette.Surface.ToHex())
             .AddStyle("z-index", $"{_zIndex}")
             .When(_isMobileSize, mobileSizeBuilder => mobileSizeBuilder
                 .AddStyle("max-height", "calc(100vh - 48px)"))

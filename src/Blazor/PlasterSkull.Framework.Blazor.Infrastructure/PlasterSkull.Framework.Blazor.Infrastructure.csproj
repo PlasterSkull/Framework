@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AssetsSourceFiles Include="../../../runtime.js"/>
+    <AssetsSourceFiles Include="../../../runtime.js" />
   </ItemGroup>
 
   <Target Name="CopyCustomContent" BeforeTargets="Build">

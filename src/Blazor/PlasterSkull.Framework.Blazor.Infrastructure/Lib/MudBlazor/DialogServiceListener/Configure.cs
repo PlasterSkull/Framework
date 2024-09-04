@@ -5,5 +5,5 @@ namespace PlasterSkull.Framework.Blazor;
 partial class Configure
 {
     public static IServiceCollection AddPlasterSkullMudDialogServiceListener(this IServiceCollection services) =>
-        services.AddScoped<IPsDialogServiceListener, PsDialogServiceListener>();
+        services.AddScoped<IMudDialogServiceListener, MudDialogServiceListener>();
 }

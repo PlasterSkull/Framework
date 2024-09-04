@@ -8,13 +8,17 @@
      style="@StyleName"
      class="@ClassName page d-flex flex-column">
 
-    <ExampleContainer CodeSource="@nameof(BasicContextMenuExample)">
-        <ExampleInfoContent>
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <ExampleContainer CodeSource="@nameof(BasicContextMenuExample)">
+            <ExampleInfoContent>
+                <MudText>
+                    Basic Usage
+                </MudText>
+            </ExampleInfoContent>
+            <DemoContent>
+                <BasicContextMenuExample />
+            </DemoContent>
+        </ExampleContainer>
+    </MudContainer>
 
-        </ExampleInfoContent>
-        <DemoContent>
-            <BasicContextMenuExample />
-        </DemoContent>
-    </ExampleContainer>
-   
 </div>

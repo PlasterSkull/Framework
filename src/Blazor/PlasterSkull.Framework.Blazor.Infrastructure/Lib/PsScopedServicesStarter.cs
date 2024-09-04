@@ -1,7 +1,7 @@
 ﻿namespace PlasterSkull.Framework.Blazor;
 
 public sealed class PsScopedServicesStarter(
-    IPsDialogServiceListener _psDialogServiceListener)
+    IMudDialogServiceListener _psDialogServiceListener)
 {
     private readonly Tracer _tracer = Tracer.Default;
 

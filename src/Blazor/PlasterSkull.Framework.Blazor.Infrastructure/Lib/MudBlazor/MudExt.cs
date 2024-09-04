@@ -17,6 +17,12 @@ public static class MudExt
     public static string GetBackgroundColorCssClass(this Color color) =>
         $"mud-{color.ToDescriptionString()}";
 
+    public static string ToHex(this MudColor color) =>
+        color.ToString(MudColorOutputFormats.Hex);
+
+    public static string ToHexA(this MudColor color) =>
+        color.ToString(MudColorOutputFormats.HexA);
+
     #endregion
 
     #region Size

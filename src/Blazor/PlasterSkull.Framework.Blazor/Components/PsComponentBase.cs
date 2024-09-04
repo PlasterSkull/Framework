@@ -6,6 +6,12 @@ public abstract class PsComponentBase
     , IAsyncDisposable
     , IHasIsDisposed
 {
+    #region Injects
+
+    [Inject] protected IMudThemeService _mudThemeService { get; init; } = null!;
+
+    #endregion
+
     #region Fields 
 
     public TagId TagId { get; private set; }

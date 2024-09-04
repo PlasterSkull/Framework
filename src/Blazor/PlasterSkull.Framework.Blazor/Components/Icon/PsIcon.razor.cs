@@ -10,8 +10,6 @@ public partial class PsIcon : PsComponentBase
 
     [Parameter] public Color Color { get; set; } = Color.Primary;
     [Parameter] public string? HexColor { get; set; }
-    [Parameter] public string? FillHexColor { get; set; }
-    [Parameter] public string? FillHoverHexColor { get; set; }
 
     [Parameter] public string SizeClass { get; set; } = "icon-24";
 
@@ -52,9 +50,7 @@ public partial class PsIcon : PsComponentBase
         new CssBuilder()
             .AddClass($"{_typeClass}")
             .AddClass($"{_typeClass}-variant-{ButtonVariant.ToString().ToKebabCase()}", IconType is IconType.CircleButton)
-            .AddClass($"{SizeClass}", !string.IsNullOrEmpty(SizeClass))
-            .AddClass($"ps-icon-with-fill-hex-color", !string.IsNullOrEmpty(FillHexColor))
-            .AddClass($"ps-icon-with-fill-hover-hex-color", !string.IsNullOrEmpty(FillHoverHexColor));
+            .AddClass($"{SizeClass}", !string.IsNullOrEmpty(SizeClass));
 
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
@@ -93,8 +89,6 @@ public partial class PsIcon : PsComponentBase
         new StyleBuilder()
             .AddStyle("width", Width, !string.IsNullOrEmpty(Width))
             .AddStyle("height", Height, !string.IsNullOrEmpty(Height))
-            .AddStyle("--fill-hex-color", FillHexColor, !string.IsNullOrEmpty(FillHexColor))
-            .AddStyle("--fill-hover-hex-color", FillHoverHexColor, !string.IsNullOrEmpty(FillHoverHexColor))
             .AddStyle(InnerIconStyle)
             .Build();
 

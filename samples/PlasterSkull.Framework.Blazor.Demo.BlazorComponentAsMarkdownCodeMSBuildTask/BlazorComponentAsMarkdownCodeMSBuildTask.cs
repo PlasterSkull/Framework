@@ -12,9 +12,9 @@ namespace PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuil
 
         public override bool Execute()
         {
-#if DEBUG
-            //if (!Debugger.IsAttached)
-            //    Debugger.Launch();
+#if false
+            if (!Debugger.IsAttached)
+                Debugger.Launch();
 #endif
             Parallel.ForEach(
                 Directory

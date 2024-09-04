@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider IsDarkMode="true" />
+<MudThemeProvider Theme="_mudThemeService.Current"
+                  IsDarkMode="_mudThemeService.IsDarkMode" />
 <PsContextMenuProvider />
 <MudPopoverProvider />
 <MudDialogProvider />

@@ -100,14 +100,14 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
         if (!canRequestShow)
             return Task.CompletedTask;
 
-        return ShowMenu(args);
+        return ShowMenuAsync(args);
     }
 
     #endregion
 
     #region Public
 
-    public async Task ShowMenu(MouseEventArgs args)
+    public async Task ShowMenuAsync(MouseEventArgs args)
     {
         if (Disabled)
             return;
@@ -124,7 +124,7 @@ public partial class PsContextMenuTrigger : PsContextMenuTriggerComponentBase
                 ShowMobileHeader = HideMobileHeader,
                 Origin = Origin,
             },
-            MenuContent = MenuContent,
+            MenuContent = MenuContent ?? null!,
         });
         _observer.OnClosed += OnObserverClosed;
 

@@ -1,6 +1,6 @@
 ﻿namespace PlasterSkull.Framework.Blazor;
 
-public interface IPsDialogServiceListener
+public interface IMudDialogServiceListener
 {
     void Start();
     void RemoveFromBackButtonQueue(Guid dialogRefId);

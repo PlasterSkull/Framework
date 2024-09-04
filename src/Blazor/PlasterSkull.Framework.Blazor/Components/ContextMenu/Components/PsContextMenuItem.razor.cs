@@ -9,7 +9,7 @@ public partial class PsContextMenuItem : PsComponentBase
     [Parameter] public string? Text { get; set; }
     [Parameter] public Typo TextTypo { get; set; } = Typo.body1;
     [Parameter] public string? Icon { get; set; }
-    [Parameter] public Color Color { get; set; } = Color.Primary;
+    [Parameter] public Color Color { get; set; } = Color.Inherit;
     [Parameter] public string? HexColor { get; set; }
     [Parameter] public bool Selected { get; set; }
     [Parameter] public bool Disabled { get; set; }

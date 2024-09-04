@@ -6,8 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <UsingTask TaskName="BlazorComponentAsMarkdownCodeMSBuildTask.BlazorComponentAsMarkdownCodeMSBuildTask"
-             AssemblyFile="..\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\bin\Debug\netstandard2.0\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.dll" />
+  <UsingTask TaskName="BlazorComponentAsMarkdownCodeMSBuildTask.BlazorComponentAsMarkdownCodeMSBuildTask" AssemblyFile="..\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\bin\Debug\netstandard2.0\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.dll" />
 
   <Target Name="DemoCodeAsMarkdown" BeforeTargets="CoreCompile">
     <BlazorComponentAsMarkdownCodeMSBuildTask />

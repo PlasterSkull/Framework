@@ -1,17 +1,20 @@
-﻿@inherits PsComponentBase
-
-<PsContextMenuTrigger ActivationEvent="PsContextMenuActivateBehavior.MouseLeftClick">
+﻿<PsContextMenuTrigger>
     <ChildContent>
-       <div class="w-min-content ma-4 pa-2 border">
-           Click here!
-       </div>
+        <div class="ma-4 pa-2 border">
+            Right-click on this text to show a context menu
+        </div>
     </ChildContent>
     <MenuContent>
         <PsContextMenuItem Text="Test button 1" />
         <PsContextMenuItem Text="Test button 2" />
         <PsContextSubMenuItem Text="Test button 3 (Sub menu)">
             <MenuContent>
-                <PsContextMenuItem Text="Test button 3.1" />
+                <PsContextSubMenuItem Text="Test button 3.1 (Sub menu)">
+                    <MenuContent>
+                        <PsContextMenuItem Text="Test button 3.1.1" />
+                        <PsContextMenuItem Text="Test button 3.1.2" />
+                    </MenuContent>
+                </PsContextSubMenuItem>
                 <PsContextMenuItem Text="Test button 3.2" />
             </MenuContent>
         </PsContextSubMenuItem>
