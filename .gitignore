@@ -401,6 +401,8 @@ FodyWeavers.xsd
 
 runtime.js
 
+**/*.razor.md
+
 **/wwwroot/**/*.css
 **/wwwroot/**/*.*.css
 **/wwwroot/**/*.*.gz

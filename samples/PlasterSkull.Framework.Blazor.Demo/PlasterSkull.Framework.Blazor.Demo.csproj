@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,7 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <UsingTask TaskName="BlazorComponentAsMarkdownCodeMSBuildTask.BlazorComponentAsMarkdownCodeMSBuildTask"
+             AssemblyFile="..\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\bin\Debug\netstandard2.0\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.dll" />
+
+  <Target Name="DemoCodeAsMarkdown" BeforeTargets="CoreCompile">
+    <BlazorComponentAsMarkdownCodeMSBuildTask />
+  </Target>
+
   <ItemGroup>
+    <EmbeddedResource Include="**/*.razor.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.37.0" />
+    <PackageReference Include="Markdown.ColorCode" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" PrivateAssets="all" />
   </ItemGroup>

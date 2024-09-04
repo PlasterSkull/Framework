@@ -14,7 +14,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var services = builder.Services;
 
 services.AddPlasterSkullServices();
-
-services.AddScoped<PsNavigationManager>();
+services.ConfigureAppLayer();
 
 await builder.Build().RunAsync();

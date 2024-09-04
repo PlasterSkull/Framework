@@ -1,41 +1,22 @@
 ﻿@inherits PsComponentBase
 
-<div @attributes="UserAttributes"
-     style="@StyleName"
-     class="@ClassName page d-flex flex-column">
-    <ExampleContainer>
-        <ExampleInfoContent>
-
-        </ExampleInfoContent>
-        <DemoContent>
-            @DemoContent
-        </DemoContent>
-        <CodeContent>
-
-        </CodeContent>
-    </ExampleContainer>
-</div>
-
-@code {
-    private RenderFragment DemoContent =>
-    @<div>
-        <PsContextMenuTrigger ActivationEvent="PsContextMenuActivateBehavior.MouseLeftClick">
-            <ChildContent>
-                <button>click</button>
-            </ChildContent>
+<PsContextMenuTrigger ActivationEvent="PsContextMenuActivateBehavior.MouseLeftClick">
+    <ChildContent>
+       <div class="w-min-content ma-4 pa-2 border">
+           Click here!
+       </div>
+    </ChildContent>
+    <MenuContent>
+        <PsContextMenuItem Text="Test button 1" />
+        <PsContextMenuItem Text="Test button 2" />
+        <PsContextSubMenuItem Text="Test button 3 (Sub menu)">
             <MenuContent>
-                <PsContextMenuItem Text="Test button 1" />
-                <PsContextMenuItem Text="Test button 2" />
-                <PsContextSubMenuItem Text="Test button 3 (Sub menu)">
-                    <MenuContent>
-                        <PsContextMenuItem Text="Test button 3.1" />
-                        <PsContextMenuItem Text="Test button 3.2" />
-                    </MenuContent>
-                </PsContextSubMenuItem>
-                <PsContextMenuItem Text="Test button 3" />
-                <PsContextMenuItem Text="Test button 4" />
-                <PsContextMenuItem Text="Test button 5" />
+                <PsContextMenuItem Text="Test button 3.1" />
+                <PsContextMenuItem Text="Test button 3.2" />
             </MenuContent>
-        </PsContextMenuTrigger>
-    </div>;
-}
+        </PsContextSubMenuItem>
+        <PsContextMenuItem Text="Test button 3" />
+        <PsContextMenuItem Text="Test button 4" />
+        <PsContextMenuItem Text="Test button 5" />
+    </MenuContent>
+</PsContextMenuTrigger>

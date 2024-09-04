@@ -7,5 +7,14 @@
 <div @attributes="UserAttributes"
      style="@StyleName"
      class="@ClassName page d-flex flex-column">
-    <BasicContextMenuExample />
+
+    <ExampleContainer CodeSource="@nameof(BasicContextMenuExample)">
+        <ExampleInfoContent>
+
+        </ExampleInfoContent>
+        <DemoContent>
+            <BasicContextMenuExample />
+        </DemoContent>
+    </ExampleContainer>
+   
 </div>
