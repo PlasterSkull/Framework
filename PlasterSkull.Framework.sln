@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{60855224-B5CB-46
 		.editorconfig = .editorconfig
 		.filenesting.json = .filenesting.json
 		.gitignore = .gitignore
+		dotnet-tools.json = dotnet-tools.json
+		global.json = global.json
 		LICENSE = LICENSE
 		package-lock.json = package-lock.json
 		package.json = package.json
@@ -56,7 +58,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasterSkull.Framework.Blaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasterSkull.Framework.Blazor.Demo", "samples\PlasterSkull.Framework.Blazor.Demo\PlasterSkull.Framework.Blazor.Demo.csproj", "{2F6A5570-17BE-453A-81D0-2C8E8D7B15C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask", "samples\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj", "{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask", "samples\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj", "{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
