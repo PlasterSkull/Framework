@@ -35,13 +35,13 @@ jobs:
 
   - name: Restore packages
     working-directory: src
-    run: dotnet restore eng/packages.proj
+    run: dotnet restore build/packages.proj
 
   - name: Build libs
-    run: dotnet build eng/packages.proj --no-restore --configuration Release
+    run: dotnet build build/packages.proj --no-restore --configuration Release
 
   - name: Pack libs
-    run: dotnet pack eng/packages.proj --no-restore --no-build --configuration Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.NuGetDirectory }}
+    run: dotnet pack build/packages.proj --no-restore --no-build --configuration Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.NuGetDirectory }}
 
   - name: Push libs
     run: dotnet nuget push ${{ env.NuGetDirectory }}\*nupkg -s ${{ env.NuGetSource }} -k ${{ secrets.NugetAuthToken }}
