@@ -1,0 +1,42 @@
+name: "Deploy to demo"
+
+on:
+ push:
+  branches:
+   - 'main'
+
+jobs:
+ deploy:
+  name: Deploy
+  runs-on: windows-latest
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+
+  - name: Install node
+    uses: actions/setup-node@v4
+    with:
+     node-version: 22.7.0
+
+  - name: Install npm packages
+    run: npm install
+
+  - name: Build js/css
+    run: npm run build:Release
+
+  - name: Install dotnet
+    uses: actions/setup-dotnet@v4
+    with:
+     global-json-file: global.json
+
+  - name: Install workloads
+    run: dotnet workload install wasm-tools
+
+  - name: Publish demo
+    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release --nologo
+
+  - name: Uploading files to gh-pages branch
+    uses: JamesIves/github-pages-deploy-action@4.1.4
+    with:
+      branch: gh-pages
+      folder: release/wwwroot
