@@ -34,7 +34,6 @@ jobs:
      global-json-file: global.json
 
   - name: Restore packages
-    working-directory: src
     run: dotnet restore build/packages.proj
 
   - name: Build libs
