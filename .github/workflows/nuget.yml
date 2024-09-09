@@ -34,7 +34,7 @@ jobs:
      global-json-file: global.json
 
   - name: Install workloads
-    run: dotnet workload install maui-windows android ios maccatalyst
+    run: dotnet workload install maui-windows maui-android maui-ios maui-maccatalyst
 
   - name: Restore packages
     run: dotnet restore build/packages.proj
