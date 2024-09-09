@@ -14,12 +14,12 @@
     <Authors>PlasterSkull</Authors>
     <Copyright>(c) PlasterSkull</Copyright>
 
-    <Version>0.0.1</Version>
 
     <PackageProjectUrl>https://github.com/PlasterSkull/Framework</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/PlasterSkull/Framework/main/build/plaster-skull.png</PackageIconUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageVersion>0.0.1</PackageVersion>
 
     <RepositoryType>git</RepositoryType>
 
