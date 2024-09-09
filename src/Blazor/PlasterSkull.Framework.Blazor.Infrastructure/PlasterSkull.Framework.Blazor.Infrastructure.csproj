@@ -19,7 +19,7 @@
     <AssetsSourceFiles Include="../../../runtime.js" />
   </ItemGroup>
 
-  <Target Name="CopyCustomContent" BeforeTargets="Build">
+  <Target Name="CopyCustomContent" BeforeTargets="CoreCompile">
     <Copy SourceFiles="@(AssetsSourceFiles)" DestinationFolder="wwwroot" SkipUnchangedFiles="true" />
   </Target>
 
