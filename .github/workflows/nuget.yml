@@ -12,7 +12,7 @@ env:
 jobs:
  deploy:
   name: Deploy
-  runs-on: ubuntu-latest
+  runs-on: windows-latest
   steps:
   - name: Checkout
     uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
      global-json-file: global.json
 
   - name: Install workloads
-    run: dotnet workload install maui-windows maui-android maui-ios maui-maccatalyst
+    run: dotnet workload install maui
 
   - name: Restore packages
     run: dotnet restore build/packages.proj
