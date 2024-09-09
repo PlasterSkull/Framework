@@ -39,7 +39,7 @@ jobs:
     run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release
 
   - name: Uploading files to gh-pages branch
-    uses: JamesIves/github-pages-deploy-action@4.1.4
+    uses: JamesIves/github-pages-deploy-action@v4
     with:
       branch: gh-pages
       folder: release/wwwroot
