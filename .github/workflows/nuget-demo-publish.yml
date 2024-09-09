@@ -41,6 +41,10 @@ jobs:
   - name: Publish demo
     run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release
 
+  # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+  - name: Add .nojekyll file
+    run: touch release/wwwroot/.nojekyll
+
   - name: Uploading files to gh-pages branch
     uses: JamesIves/github-pages-deploy-action@v4
     with:
