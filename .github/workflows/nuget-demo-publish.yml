@@ -36,7 +36,7 @@ jobs:
     run: dotnet build build/nuget-demo-packages.proj -c Release
     
   - name: Publish demo
-    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release
+    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release --no-restore --no-build 
 
   - name: Uploading files to gh-pages branch
     uses: JamesIves/github-pages-deploy-action@4.1.4
