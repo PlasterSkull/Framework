@@ -32,6 +32,9 @@ jobs:
   - name: Install workloads
     run: dotnet workload install wasm-tools
 
+  - name: Build msbuild custom task 
+    run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj -c Release
+
   - name: Publish demo
     run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release
 
