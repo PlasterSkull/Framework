@@ -1,0 +1,26 @@
+.ps {
+    &-show-render-info {
+        position: relative;
+        border-width: 2px;
+        border-color: var(--render-info-color);
+
+        &:after {
+            font-size: var(--render-info-font-size);
+            content: attr(render-info);
+            pointer-events: none;
+            left: var(--render-info-left-offset);
+            top: var(--render-info-top-offset);
+            right: var(--render-info-right-offset);
+            bottom: var(--render-info-bottom-offset);
+            margin: var(--render-info-margin);
+            display: block;
+            position: absolute;
+            z-index: var(--render-info-z-index);
+            padding: 0px 2px;
+            background-color: var(--render-info-color);
+            color: white;
+            border-radius: 2px;
+            border-color: var(--render-info-color);
+        }
+    }
+}

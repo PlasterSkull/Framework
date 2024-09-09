@@ -1,0 +1,459 @@
+@use "sass:map";
+@import '../../../../PlasterSkull.Framework.Blazor.Infrastructure/wwwroot/css/core/_vars.scss';
+
+$steps: 16, 24, 32, 40, 48;
+
+.ps-icon {
+
+    @each $breakpoint in $breakpoints {
+        @if($breakpoint == 'xs') {
+            &-default {
+                &.icon-#{'16'} {
+
+                    .mud-icon-root {
+                        max-width: 16px;
+                        max-height: 16px;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                &.icon-#{'24'} {
+                    .mud-icon-root {
+                        max-width: 24px;
+                        max-height: 24px;
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+
+                &.icon-#{'32'} {
+                    .mud-icon-root {
+                        max-width: 32px;
+                        max-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+
+                &.icon-#{'40'} {
+                    .mud-icon-root {
+                        max-width: 40px;
+                        max-height: 40px;
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+
+                &.icon-#{'48'} {
+                    .mud-icon-root {
+                        max-width: 48px;
+                        max-height: 48px;
+                        width: 48px;
+                        height: 48px;
+                    }
+                }
+            }
+
+            &-circle {
+                &.icon-#{'16'} {
+
+                    .circle-root {
+                        padding: 1px;
+                    }
+
+                    .mud-icon-root {
+                        max-width: 12px;
+                        max-height: 12px;
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+
+                &.icon-#{'24'} {
+
+                    .circle-root {
+                        padding: 3px;
+                    }
+
+                    .mud-icon-root {
+                        max-width: 16px;
+                        max-height: 16px;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                &.icon-#{'32'} {
+
+                    .circle-root {
+                        padding: 5px;
+                    }
+
+                    .mud-icon-root {
+                        max-width: 20px;
+                        max-height: 20px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                &.icon-#{'40'} {
+
+                    .circle-root {
+                        padding: 5px;
+                    }
+
+                    .mud-icon-root {
+                        max-width: 28px;
+                        max-height: 28px;
+                        width: 28px;
+                        height: 28px;
+                    }
+                }
+
+                &.icon-#{'48'} {
+
+                    .circle-root {
+                        padding: 7px;
+                    }
+
+                    .mud-icon-root {
+                        max-width: 32px;
+                        max-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+            }
+
+            &-circle-button {
+                &.icon-#{'16'} {
+
+                    .mud-button-root {
+                        padding: 2px;
+                    }
+
+                    &.ps-icon-circle-button-variant-outlined {
+                        .mud-button-root {
+                            padding: 1px;
+                        }
+                    }
+
+                    .mud-icon-root {
+                        max-width: 12px;
+                        max-height: 12px;
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+
+                &.icon-#{'24'} {
+
+                    .mud-button-root {
+                        padding: 4px;
+                    }
+
+                    &.ps-icon-circle-button-variant-outlined {
+                        .mud-button-root {
+                            padding: 3px;
+                        }
+                    }
+
+                    .mud-icon-root {
+                        max-width: 16px;
+                        max-height: 16px;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                &.icon-#{'32'} {
+
+                    .mud-button-root {
+                        padding: 6px;
+                    }
+
+                    &.ps-icon-circle-button-variant-outlined {
+                        .mud-button-root {
+                            padding: 5px;
+                        }
+                    }
+
+                    .mud-icon-root {
+                        max-width: 20px;
+                        max-height: 20px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                &.icon-#{'40'} {
+
+                    .mud-button-root {
+                        padding: 6px;
+                    }
+
+                    &.ps-icon-circle-button-variant-outlined {
+                        .mud-button-root {
+                            padding: 5px;
+                        }
+                    }
+
+                    .mud-icon-root {
+                        max-width: 28px;
+                        max-height: 28px;
+                        width: 28px;
+                        height: 28px;
+                    }
+                }
+
+                &.icon-#{'48'} {
+
+                    .mud-button-root {
+                        padding: 8px;
+                    }
+
+                    &.ps-icon-circle-button-variant-outlined {
+                        .mud-button-root {
+                            padding: 7px;
+                        }
+                    }
+
+                    .mud-icon-root {
+                        max-width: 32px;
+                        max-height: 32px;
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+            }
+        }
+
+        @else {
+            @media (min-width: map.get($breakpoints-sizes, $breakpoint)) {
+                &-default {
+                    &.icon-#{$breakpoint}-#{'16'} {
+
+                        .mud-icon-root {
+                            max-width: 16px;
+                            max-height: 16px;
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'24'} {
+                        .mud-icon-root {
+                            max-width: 24px;
+                            max-height: 24px;
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'32'} {
+                        .mud-icon-root {
+                            max-width: 32px;
+                            max-height: 32px;
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'40'} {
+                        .mud-icon-root {
+                            max-width: 40px;
+                            max-height: 40px;
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'48'} {
+                        .mud-icon-root {
+                            max-width: 48px;
+                            max-height: 48px;
+                            width: 48px;
+                            height: 48px;
+                        }
+                    }
+                }
+
+                &-circle {
+                    &.icon-#{$breakpoint}-#{'16'} {
+
+                        .circle-root {
+                            padding: 1px;
+                        }
+
+                        .mud-icon-root {
+                            max-width: 12px;
+                            max-height: 12px;
+                            width: 12px;
+                            height: 12px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'24'} {
+
+                        .circle-root {
+                            padding: 3px;
+                        }
+
+                        .mud-icon-root {
+                            max-width: 16px;
+                            max-height: 16px;
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'32'} {
+
+                        .circle-root {
+                            padding: 5px;
+                        }
+
+                        .mud-icon-root {
+                            max-width: 20px;
+                            max-height: 20px;
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'40'} {
+
+                        .circle-root {
+                            padding: 5px;
+                        }
+
+                        .mud-icon-root {
+                            max-width: 28px;
+                            max-height: 28px;
+                            width: 28px;
+                            height: 28px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'48'} {
+
+                        .circle-root {
+                            padding: 7px;
+                        }
+
+                        .mud-icon-root {
+                            max-width: 32px;
+                            max-height: 32px;
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+                }
+
+                &-circle-button {
+                    &.icon-#{$breakpoint}-#{'16'} {
+
+                        .mud-button-root {
+                            padding: 2px;
+                        }
+
+                        &.ps-icon-circle-button-variant-outlined {
+                            .mud-button-root {
+                                padding: 1px;
+                            }
+                        }
+
+                        .mud-icon-root {
+                            max-width: 12px;
+                            max-height: 12px;
+                            width: 12px;
+                            height: 12px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'24'} {
+
+                        .mud-button-root {
+                            padding: 4px;
+                        }
+
+                        &.ps-icon-circle-button-variant-outlined {
+                            .mud-button-root {
+                                padding: 3px;
+                            }
+                        }
+
+                        .mud-icon-root {
+                            max-width: 16px;
+                            max-height: 16px;
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'32'} {
+
+                        .mud-button-root {
+                            padding: 6px;
+                        }
+
+                        &.ps-icon-circle-button-variant-outlined {
+                            .mud-button-root {
+                                padding: 5px;
+                            }
+                        }
+
+                        .mud-icon-root {
+                            max-width: 20px;
+                            max-height: 20px;
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'40'} {
+
+                        .mud-button-root {
+                            padding: 6px;
+                        }
+
+                        &.ps-icon-circle-button-variant-outlined {
+                            .mud-button-root {
+                                padding: 5px;
+                            }
+                        }
+
+                        .mud-icon-root {
+                            max-width: 28px;
+                            max-height: 28px;
+                            width: 28px;
+                            height: 28px;
+                        }
+                    }
+
+                    &.icon-#{$breakpoint}-#{'48'} {
+
+                        .mud-button-root {
+                            padding: 8px;
+                        }
+
+                        &.ps-icon-circle-button-variant-outlined {
+                            .mud-button-root {
+                                padding: 7px;
+                            }
+                        }
+
+                        .mud-icon-root {
+                            max-width: 32px;
+                            max-height: 32px;
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,208 @@
+@use "sass:map";
+@import '_vars.scss';
+
+// Height & Width
+
+$steps: 25, 50, 75, 100, auto, min-content, max-content, fit-content;
+
+@each $breakpoint in $breakpoints {
+    @if ($breakpoint == "xs") {
+        @each $step in $steps {
+            @if (($step == 25) or ($step == 50) or ($step == 75) or ($step == 100)) {
+                .h {
+                    &-#{$step} {
+                        height: #{$step + '%'};
+                    }
+
+                    &-vh-#{$step} {
+                        height: #{$step + 'vh'};
+                    }
+                }
+
+                .w {
+                    &-#{$step} {
+                        width: #{$step + '%'};
+                    }
+
+                    &-vw-#{$step} {
+                        width: #{$step + 'vw'};
+                    }
+                }
+            }
+            @else {
+                .h {
+                    &-#{$step} {
+                        height: $step;
+                    }
+                }
+
+                .w {
+                    &-#{$step} {
+                        width: $step;
+                    }
+                }
+            }
+        }
+    }
+    @else {
+        @media (min-width: map.get($breakpoints-sizes, $breakpoint)) {
+            @each $step in $steps {
+                @if (($step == 25) or ($step == 50) or ($step == 75) or ($step == 100)) {
+                    .h {
+                        &-#{$breakpoint}-#{$step} {
+                            height: #{$step + '%'};
+                        }
+
+                        &-vh-#{$breakpoint}-#{$step} {
+                            height: #{$step + 'vh'};
+                        }
+                    }
+
+                    .w {
+                        &-#{$breakpoint}-#{$step} {
+                            width: #{$step + '%'};
+                        }
+
+                        &-vw-#{$breakpoint}-#{$step} {
+                            width: #{$step + 'vw'};
+                        }
+                    }
+                }
+                @else {
+                    .h {
+                        &-#{$breakpoint}-#{$step} {
+                            height: $step;
+                        }
+                    }
+
+                    .w {
+                        &-#{$breakpoint}-#{$step} {
+                            width: $step;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Overflow
+
+$overflow-values: auto, clip, hidden, inherit, initial, revert, revert-layer, scroll, unset, visible;
+
+@each $breakpoint in $breakpoints {
+    @if ($breakpoint == "xs") {
+        @each $overflow-value in $overflow-values {
+            .overflow-#{$overflow-value} {
+                overflow: $overflow-value;
+            }
+
+            .overflow-x-#{$overflow-value} {
+                overflow-x: $overflow-value;
+            }
+
+            .overflow-y-#{$overflow-value} {
+                overflow-y: $overflow-value;
+            }
+        }
+    }
+    @else {
+        @media (min-width: map.get($breakpoints-sizes, $breakpoint)) {
+            @each $overflow-value in $overflow-values {
+                .overflow-#{$breakpoint}-#{$overflow-value} {
+                    overflow: $overflow-value;
+                }
+
+                .overflow-x-#{$breakpoint}-#{$overflow-value} {
+                    overflow-x: $overflow-value;
+                }
+
+                .overflow-y-#{$breakpoint}-#{$overflow-value} {
+                    overflow-y: $overflow-value;
+                }
+            }
+        }
+    }
+}
+
+.top-0 {
+    top: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.left-0 {
+    left: 0;
+}
+
+// Scrollbar
+
+@each $breakpoint in $breakpoints {
+    @if ($breakpoint == "xs") {
+        .hide-scrollbar {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .show-scrollbar {
+            &::-webkit-scrollbar {
+                display: block;
+            }
+        }
+    }
+
+    @else {
+        @media (min-width: map.get($breakpoints-sizes, $breakpoint)) {
+            .hide-scrollbar-#{$breakpoint} {
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
+            .show-scrollbar-#{$breakpoint} {
+                &::-webkit-scrollbar {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.text {
+    &-align {
+        &-start {
+            text-align: start;
+        }
+
+        &-center {
+            text-align: center;
+        }
+
+        &-end {
+            text-align: end;
+        }
+    }
+
+    &-ellipsis {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.fw {
+    &-bold {
+        font-weight: bold;
+    }
+
+    &-bolder {
+        font-weight: bolder;
+    }
+}

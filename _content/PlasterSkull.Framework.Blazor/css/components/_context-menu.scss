@@ -1,0 +1,85 @@
+$HorizontalMargin: 16px;
+$VerticalMargin: 24px;
+
+.ps-context-menu-instance {
+    display: flex;
+    flex-direction: column;
+    animation: show-animation .2s linear;
+    animation-fill-mode: forwards;
+
+    &.closing {
+        display: flex;
+        animation: hide-animation .2s linear;
+        animation-fill-mode: forwards;
+    }
+
+    .swipe-button {
+        width: 60px;
+        height: 3px;
+        border-radius: 8px;
+        background-color: white;
+        align-self: center;
+        top: -10px;
+        position: absolute;
+    }
+}
+
+@media (max-width: 960px) {
+    .ps-context-menu-instance {
+        animation: show-animation-mobile .2s linear;
+        animation-fill-mode: forwards;
+        min-height: 176px;
+
+        &.hidden {
+            &:not(.active) {
+                display: none !important;
+            }
+        }
+
+        &.closing {
+            display: flex;
+            animation: hide-animation-mobile .2s linear;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+@keyframes show-animation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes show-animation-mobile {
+    0% {
+        bottom: -100%;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+
+@keyframes hide-animation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes hide-animation-mobile {
+    0% {
+        bottom: 0;
+    }
+
+    100% {
+        bottom: -100%;
+    }
+}
