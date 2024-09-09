@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project InitialTargets="CopyCustomContent" Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -19,7 +19,7 @@
     <AssetsSourceFiles Include="../../../runtime.js" />
   </ItemGroup>
 
-  <Target Name="CopyCustomContent" BeforeTargets="CoreCompile">
+  <Target Name="CopyCustomContent">
     <Copy SourceFiles="@(AssetsSourceFiles)" DestinationFolder="wwwroot" SkipUnchangedFiles="true" />
   </Target>
 
