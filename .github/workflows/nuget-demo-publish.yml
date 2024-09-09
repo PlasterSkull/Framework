@@ -33,7 +33,7 @@ jobs:
     run: dotnet workload install wasm-tools
     
   - name: Publish demo
-    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release
+    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --output release --verbose
 
   - name: Uploading files to gh-pages branch
     uses: JamesIves/github-pages-deploy-action@4.1.4
