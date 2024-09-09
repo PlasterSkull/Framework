@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="latest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Central package management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Constants -->
+  <PropertyGroup>
+
+    <!-- Core packages -->
+    <AspNetCoreVersion>[8.0.6,)</AspNetCoreVersion>
+    <BlazorVersion>$(AspNetCoreVersion)</BlazorVersion>
+    <SystemXxxVersion>$(AspNetCoreVersion)</SystemXxxVersion>
+    <MicrosoftExtensionsVersion>8.0.1</MicrosoftExtensionsVersion>
+    <MicrosoftExtensionsBaseVersion>8.0.0</MicrosoftExtensionsBaseVersion>
+    <ActualLabVersion>9.1</ActualLabVersion>
+  </PropertyGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup Label="Nupkg Versions">
+
+    <PackageVersion Include="ActualLab.Core" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.Blazor" Version="$(ActualLabVersion)" />
+
+    <PackageVersion Include="ErrorOr" Version="2.0.1" />
+    <PackageVersion Include="Fluxor.Blazor.Web" Version="6.0.0" />
+    <PackageVersion Include="FluentValidation" Version="11.9.2" />
+
+    <PackageVersion Include="Markdig" Version="0.37.0" />
+    <PackageVersion Include="Markdown.ColorCode" Version="2.3.0" />
+
+    <!-- Blazor -->
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Authorization" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(BlazorVersion)" PrivateAssets="all" />
+    
+    <!-- Build -->
+    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="17.11.4" />
+
+    <!-- MAUI  -->
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
+
+    <PackageVersion Include="MudBlazor" Version="7.6.0" />
+
+  </ItemGroup>
+
+  <!--
+    MAUI is not compatible with centralized packages management https://github.com/dotnet/sdk/issues/27840
+    It gives NU1009 error during the build step.
+    I tried to apply DisableImplicitLibraryPacksFolder property but it did not help.
+    Solution with excluding some packages by condition solves the issue. Keep it for now.
+  -->
+  <ItemGroup Label="Nupkg Extensions Versions" Condition="!$(MSBuildProjectName.Contains('.Maui'))">
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.FileProviders.Physical" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="$(AspNetCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsBaseVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="$(AspNetCoreVersion)" />
+  </ItemGroup>
+
+</Project>

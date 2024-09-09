@@ -1,27 +1,34 @@
 <Project>
-  
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
   <!-- Main -->
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  
+
   <!-- Nuget -->
-  
+
   <PropertyGroup>
     <Authors>PlasterSkull</Authors>
     <Copyright>(c) PlasterSkull</Copyright>
-    
-    <!--<CommonTags>PlasterSkull</CommonTags>-->
-    
+
+    <Version>0.0.1</Version>
+
     <PackageProjectUrl>https://github.com/PlasterSkull/Framework</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/PlasterSkull/Framework/main/build/plaster-skull.png</PackageIconUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
     <RepositoryType>git</RepositoryType>
-    
+
+    <!-- Symbols: we embed .pdb into .nupkg & don't produce .snupkg (no extra value in this case) -->
+    <IncludeSymbols>false</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Include .pdb right into the .nupkg  -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
   </PropertyGroup>
 
 </Project>

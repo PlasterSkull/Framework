@@ -7,7 +7,6 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
     <PackageTags>PlasterSkull, Blazor, Extensions, Helpers</PackageTags>
     <Description>PlasterSkull extensions, helpers and other useful stuff for Blazor</Description>
   </PropertyGroup>
@@ -25,10 +24,10 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="ActualLab.Fusion.Blazor" Version="9.0.92" />
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
-    <PackageReference Include="MudBlazor" Version="7.6.0" />
+    <PackageReference Include="ActualLab.Fusion.Blazor" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <PackageReference Include="MudBlazor" />
   </ItemGroup>
 
   <ItemGroup>

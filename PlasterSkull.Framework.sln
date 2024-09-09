@@ -8,9 +8,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{60855224-B5CB-46
 		.editorconfig = .editorconfig
 		.filenesting.json = .filenesting.json
 		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		dotnet-tools.json = dotnet-tools.json
 		global.json = global.json
 		LICENSE = LICENSE
+		.github\workflows\nuget.yml = .github\workflows\nuget.yml
 		package-lock.json = package-lock.json
 		package.json = package.json
 		README.md = README.md
@@ -51,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maui", "Maui", "{A7198049-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E15B07B8-4AE8-4431-8A25-9A6CB3C5A99C}"
 	ProjectSection(SolutionItems) = preProject
+		build\packages.proj = build\packages.proj
 		build\plaster-skull.png = build\plaster-skull.png
 	EndProjectSection
 EndProject

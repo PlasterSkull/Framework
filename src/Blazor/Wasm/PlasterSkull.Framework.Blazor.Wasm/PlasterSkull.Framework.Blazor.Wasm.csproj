@@ -7,7 +7,6 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
     <PackageTags>PlasterSkull, Blazor, Wasm</PackageTags>
     <Description>PlasterSkull extensions, helpers and other useful stuff for Blazor Wasm</Description>
   </PropertyGroup>
@@ -17,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
   </ItemGroup>
 
   <ItemGroup>

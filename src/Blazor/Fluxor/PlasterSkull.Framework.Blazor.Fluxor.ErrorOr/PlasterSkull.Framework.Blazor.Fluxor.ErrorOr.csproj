@@ -7,7 +7,6 @@
   <!-- Nuget -->
   
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
     <PackageTags>PlasterSkull, Blazor, Fluxor, ErrorOr</PackageTags>
     <Description>PlasterSkull extra stuff for Fluxor with some ErrorOr lib</Description>
   </PropertyGroup>
@@ -15,11 +14,7 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\PlasterSkull.Framework.ErrorOr\PlasterSkull.Framework.ErrorOr.csproj" />
     <ProjectReference Include="..\PlasterSkull.Framework.Blazor.Fluxor\PlasterSkull.Framework.Blazor.Fluxor.csproj" />

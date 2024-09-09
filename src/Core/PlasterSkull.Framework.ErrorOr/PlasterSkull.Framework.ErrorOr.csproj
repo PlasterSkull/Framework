@@ -7,13 +7,12 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
     <PackageTags>PlasterSkull, ErrorOr, Extensions</PackageTags>
     <Description>PlasterSkull extensions for ErrorOr</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="ErrorOr" />
   </ItemGroup>
 
 </Project>

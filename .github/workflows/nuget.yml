@@ -1,0 +1,44 @@
+name: "Deploy to Nuget"
+
+on:
+ push:
+  branches:
+   - 'main'
+
+env:
+ NuGetDirectory: ${{ github.workspace }}/nuget
+ NuGetSource: "https://api.nuget.org/v3/index.json"
+
+jobs:
+ deploy:
+  name: Deploy
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+
+  - name: Install node
+    uses: actions/setup-node@v4
+    with:
+     node-version: 22.7.0
+
+  - name: Build js/css
+    run: npm run build:Release
+
+  - name: Install dotnet
+    uses: actions/setup-dotnet@v4
+    with:
+     global-json-file: global.json
+
+  - name: Restore packages
+    working-directory: src
+    run: dotnet restore eng/packages.proj
+
+  - name: Build libs
+    run: dotnet build eng/packages.proj --no-restore --configuration Release
+
+  - name: Pack libs
+    run: dotnet pack eng/packages.proj --no-restore --no-build --configuration Release -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.NuGetDirectory }}
+
+  - name: Push libs
+    run: dotnet nuget push ${{ env.NuGetDirectory }}\*nupkg -s ${{ env.NuGetSource }} -k ${{ secrets.NugetAuthToken }}

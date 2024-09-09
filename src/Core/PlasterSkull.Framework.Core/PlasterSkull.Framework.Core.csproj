@@ -7,15 +7,14 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <VersionPrefix>0.1</VersionPrefix>
     <PackageTags>PlasterSkull, Extensions, Helpers</PackageTags>
     <Description>PlasterSkull extensions, helpers and other useful stuff</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ActualLab.Core" Version="9.0.81" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="ActualLab.Core"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
 
 </Project>
