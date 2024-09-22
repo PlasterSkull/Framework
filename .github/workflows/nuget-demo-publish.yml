@@ -39,7 +39,7 @@ jobs:
     run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj -c Release
 
   - name: Copy specific files
-    run: cp ./runtime.js ./source/Blazor/PlasterSkull.Framework.Blazor.Infrastructure/wwwroot
+    run: cp ./runtime.js ./src/Blazor/PlasterSkull.Framework.Blazor.Infrastructure/wwwroot
 
   - name: Build demo
     run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release  
