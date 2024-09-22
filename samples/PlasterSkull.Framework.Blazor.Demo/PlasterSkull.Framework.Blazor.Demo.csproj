@@ -9,7 +9,7 @@
   <UsingTask TaskName="BlazorComponentAsMarkdownCodeMSBuildTask.BlazorComponentAsMarkdownCodeMSBuildTask"
              AssemblyFile="..\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\bin\$(Configuration)\netstandard2.0\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.dll" />
 
-  <Target Name="DemoCodeAsMarkdown" BeforeTargets="Build">
+  <Target Name="DemoCodeAsMarkdown" BeforeTargets="Compile">
     <BlazorComponentAsMarkdownCodeMSBuildTask />
   </Target>
 

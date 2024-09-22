@@ -72,11 +72,17 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
             await newCodeExampleKeeper.Locker.WaitAsync(ct);
 
             if (!s_resourceFilesMap.TryGetValue(key, out var resourceFileName))
+            {
+                LogMissedResource();
                 return default;
+            }
 
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceFileName);
             if (stream == null)
+            {
+                LogMissedResource();
                 return default;
+            }
 
             using var reader = new StreamReader(stream);
             return newCodeExampleKeeper.MarkupString = new(Markdig.Markdown.ToHtml(
@@ -93,6 +99,9 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
         }
 
         return default;
+
+        void LogMissedResource() =>
+            _logger.LogError("Resource missed: {Key}", key);
     }
 
     #endregion
