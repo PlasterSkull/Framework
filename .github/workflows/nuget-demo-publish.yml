@@ -42,7 +42,7 @@ jobs:
     run: dotnet restore build/nuget-demo-packages.proj
 
   - name: Build
-    run: dotnet build build/nuget-demo-packages.proj --no-restore --c Release
+    run: dotnet build build/nuget-demo-packages.proj --no-restore -c Release
 
   - name: Copy specific files
     run: cp ./runtime.js ./src/Blazor/PlasterSkull.Framework.Blazor.Infrastructure/wwwroot
