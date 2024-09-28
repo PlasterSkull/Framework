@@ -35,6 +35,9 @@ jobs:
   - name: Install workloads
     run: dotnet workload install wasm-tools
 
+  - name: Build msbuild custom task 
+    run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj -c Release
+
   - name: Restore
     run: dotnet restore build/nuget-demo-packages.proj
 

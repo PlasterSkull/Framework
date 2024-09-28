@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.Build.Traversal">
   <ItemGroup>
     <ProjectReference Include="../src/**/*.*proj" Exclude="../src/**/*.Maui.csproj" />
-    <ProjectReference Include="../samples/**/*.*proj" />
+    <ProjectReference Include="../samples/**/*.*proj" Exclude="../samples/*MSBuildTask/**/*.*proj" />
   </ItemGroup>
 </Project>
