@@ -1,4 +1,4 @@
-﻿<Project InitialTargets="DemoCodeAsMarkdown" Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,7 +9,7 @@
   <UsingTask TaskName="BlazorComponentAsMarkdownCodeMSBuildTask.BlazorComponentAsMarkdownCodeMSBuildTask"
              AssemblyFile="..\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\bin\$(Configuration)\netstandard2.0\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.dll" />
 
-  <Target Name="DemoCodeAsMarkdown">
+  <Target Name="DemoCodeAsMarkdown" BeforeTargets="BeforeBuild">
     <BlazorComponentAsMarkdownCodeMSBuildTask />
   </Target>
 
