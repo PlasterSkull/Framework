@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PlasterSkull.Framework.Blazor.Demo",
   "resources": {
-    "hash": "sha256-KaY9wtmHudoiupG4A9CnLuOhc5gtozULK5glGiOrkAQ=",
+    "hash": "sha256-d+jMAaKOuEXONzhefhT7MAYkNjCWQkjIzyqj+nJlNYA=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.bx8ljiq1xg.js": "sha256-KogiPXE/VYVUmY3Du7QN8NlVKRtWRwFTIq1a9+kCVWo="
     },
@@ -55,11 +55,11 @@
       "MudBlazor.wasm": "sha256-vT5F23i49W8PLyB1W+xnliCRzxgOS+XKG8+in9wXSxE=",
       "netstandard.wasm": "sha256-oNL5SVQZVcs1OmRSjXwrf0FBQtjkwP7q5wozmXdnam8=",
       "Newtonsoft.Json.wasm": "sha256-GlXMWKvDs45M2pACoR3Y4Qh8mcrOZGljqmvJY+6JZ5s=",
-      "PlasterSkull.Framework.Blazor.Demo.wasm": "sha256-/Vrr3blFBQyOAuslcJXVuTBhI6tbULY8YyEW4EtZ6Zg=",
-      "PlasterSkull.Framework.Blazor.Infrastructure.wasm": "sha256-fmQPkf/+m112elCAPHFAno3FUD42VchU551QVrgDqzU=",
-      "PlasterSkull.Framework.Blazor.wasm": "sha256-IROAR3tjt5RU+OR+3/MbIC7n5o6ThQzfbdVNTyOJXZ0=",
-      "PlasterSkull.Framework.Blazor.Wasm.wasm": "sha256-K7bkbQYouL4C04XcoS8qeQOisH5nudNCQeZ+/mGlxKM=",
-      "PlasterSkull.Framework.Core.wasm": "sha256-qqm9LQdP+JElVV+FOLR7m+/GK+Q0/3KwaRPot8cnW6s=",
+      "PlasterSkull.Framework.Blazor.Demo.wasm": "sha256-3RFTt4zdT7Z0sND3v03YHhptyK+lcENx0Gf0N4OGRhw=",
+      "PlasterSkull.Framework.Blazor.Infrastructure.wasm": "sha256-qK6x3zQqmq1C1Gf21VN+fKygjn/BQAF3djZTVieY26A=",
+      "PlasterSkull.Framework.Blazor.wasm": "sha256-dQ/YBJDcjn4f/0x+xRajttiaZNbbnL7znnSNObEl+LM=",
+      "PlasterSkull.Framework.Blazor.Wasm.wasm": "sha256-vpnNluA8LwcgjLWweN9lehJuR/2QJ+1iJl5PkOy757c=",
+      "PlasterSkull.Framework.Core.wasm": "sha256-EqL24NK85wsN6MDAYJ4O7jQCMQ7eVAPPefNt2LoA+lk=",
       "System.Collections.Concurrent.wasm": "sha256-h/XOP6FX38fCaXFhViFFKpooBrRG2mRHBcEHFHH97Lw=",
       "System.Collections.Immutable.wasm": "sha256-YURRbUpIvNQ98os38mxGMKvR3T/j926vvSZhPqvulao=",
       "System.Collections.NonGeneric.wasm": "sha256-sK8kDnVci1HIJi248etu7BdPdUYv/5OTn6F3IIrht2A=",
