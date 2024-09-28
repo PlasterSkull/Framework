@@ -35,17 +35,17 @@ jobs:
   - name: Install workloads
     run: dotnet workload install wasm-tools
 
-  - name: Build msbuild custom task 
-    run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj -c Release
+  - name: Restore
+    run: dotnet restore build/nuget-demo-packages.proj
+
+  - name: Build
+    run: dotnet build build/nuget-demo-packages.proj --no-restore --c Release
 
   - name: Copy specific files
     run: cp ./runtime.js ./src/Blazor/PlasterSkull.Framework.Blazor.Infrastructure/wwwroot
 
-  - name: Build demo
-    run: dotnet build ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release  
-
-  - name: Publish demo
-    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj -c Release --no-build --no-restore --output release
+  - name: Publish
+    run: dotnet publish ./samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj --no-restore --no-build -c Release --output release
 
     # changes the base-tag in index.html from '/' to 'Framework' to match GitHub Pages repository subdirectory
   - name: Change base-tag in index.html from / to Framework

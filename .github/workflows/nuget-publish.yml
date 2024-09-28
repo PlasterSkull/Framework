@@ -43,10 +43,10 @@ jobs:
     run: dotnet restore build/nuget-packages.proj
 
   - name: Build libs
-    run: dotnet build build/nuget-packages.proj --no-restore --configuration Release
+    run: dotnet build build/nuget-packages.proj --no-restore -c Release
 
   - name: Pack libs
-    run: dotnet pack build/nuget-packages.proj --no-restore --no-build --configuration Release --output ${{ env.NuGetDirectory }}
+    run: dotnet pack build/nuget-packages.proj --no-restore --no-build -c Release --output ${{ env.NuGetDirectory }}
 
   - name: Push libs
     run: dotnet pushpackages --folder ${{ env.NuGetDirectory }} --source ${{ env.NuGetSource }} --api-key ${{ secrets.NugetAuthToken }}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Build.Framework;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuil
                     var mdWithCodeFilePath = filePath + ".md";
                     var mdValue = $"```csharp\r\n{fileText}\r\n```";
                     File.WriteAllText(mdWithCodeFilePath, mdValue);
+                    Console.WriteLine($"File {mdWithCodeFilePath} created");
+                    //Log.LogMessage(MessageImportance.High, "File {FilePath} created", mdWithCodeFilePath);
                 });
 
             return !Log.HasLoggedErrors;
