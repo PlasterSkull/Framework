@@ -1,4 +1,6 @@
-﻿namespace PlasterSkull.Framework.Blazor;
+﻿using System.Buffers;
+
+namespace PlasterSkull.Framework.Blazor;
 
 public static class MudExt
 {
@@ -6,9 +8,19 @@ public static class MudExt
 
     public static MudColor GenerateRandomMudColor()
     {
-        byte[] randomColor = new byte[3];
-        new Random().NextBytes(randomColor);
-        return new MudColor(randomColor[0], randomColor[1], randomColor[2], byte.MaxValue);
+        byte[] randomColor = ArrayPool<byte>.Shared.Rent(3);
+
+        Random.Shared.NextBytes(randomColor);
+
+        var r = randomColor[0];
+        var g = randomColor[1];
+        var b = randomColor[2];
+
+        //var brightness = (double)(0.299 * r + 0.587 * g + 0.114 * b);
+
+        ArrayPool<byte>.Shared.Return(randomColor);
+
+        return new MudColor(r, g, b, (byte)186);
     }
 
     public static string GetColorCssClass(this Color color) =>

@@ -5,8 +5,8 @@ namespace PlasterSkull.Framework.Core;
 partial class LinqExt
 {
     public static IEnumerable<TSource> AppendIf<TSource>(
-        this IEnumerable<TSource> source, 
-        bool condition, 
+        this IEnumerable<TSource> source,
+        bool condition,
         TSource element) =>
         condition
             ? source.Append(element)

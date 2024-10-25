@@ -55,8 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E15B07B8
 	ProjectSection(SolutionItems) = preProject
 		build\nuget-demo-packages.proj = build\nuget-demo-packages.proj
 		.github\workflows\nuget-demo-publish.yml = .github\workflows\nuget-demo-publish.yml
-		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
 		build\nuget-packages.proj = build\nuget-packages.proj
+		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
 		build\plaster-skull.png = build\plaster-skull.png
 	EndProjectSection
 EndProject
@@ -65,6 +65,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasterSkull.Framework.Blazor.Demo", "samples\PlasterSkull.Framework.Blazor.Demo\PlasterSkull.Framework.Blazor.Demo.csproj", "{2F6A5570-17BE-453A-81D0-2C8E8D7B15C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask", "samples\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask\PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj", "{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServerSide", "ServerSide", "{305555A2-1F4B-4646-8D6E-4763F2622693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlasterSkull.Framework.Blazor.ServerSide", "src\Blazor\ServerSide\PlasterSkull.Framework.Blazor.ServerSide\PlasterSkull.Framework.Blazor.ServerSide.csproj", "{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,6 +116,10 @@ Global
 		{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +140,8 @@ Global
 		{B297B80B-97A6-4E4D-9846-1B3C324A81C3} = {A7198049-1064-4B14-9B19-80DFFFD85CF4}
 		{2F6A5570-17BE-453A-81D0-2C8E8D7B15C6} = {3BCAAF3C-766A-4101-B1BD-2677A2308A17}
 		{3B3D22DC-E14B-47F2-BAB0-9B951DC24D22} = {3BCAAF3C-766A-4101-B1BD-2677A2308A17}
+		{305555A2-1F4B-4646-8D6E-4763F2622693} = {AC7F3F38-037B-42AA-B7C6-41E0394C0D10}
+		{693DC8CB-6F2C-43DC-AFA9-F384201D6DFB} = {305555A2-1F4B-4646-8D6E-4763F2622693}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FC33C31-47A9-430E-992B-1DD2D9EE9D5B}

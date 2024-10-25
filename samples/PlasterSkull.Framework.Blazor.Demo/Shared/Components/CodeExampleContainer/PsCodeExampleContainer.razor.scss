@@ -1,0 +1,14 @@
+.ps-code-example-container {
+    .code-container {
+        .mud-collapse-wrapper-inner {
+            .mud-tabs-tabbar {
+                display: none;
+            }
+
+            .mud-tabs-panels > div {
+                padding: 16px;
+                background-color: var(--mud-palette-background-gray) !important;
+            }
+        }
+    }
+}

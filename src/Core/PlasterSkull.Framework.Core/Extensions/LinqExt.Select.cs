@@ -33,7 +33,7 @@ partial class LinqExt
 
         if (recursiveSequence == null)
             yield break;
-        
+
         foreach (var recursiveItem in recursiveSequence)
             yield return recursiveItem;
     }
@@ -52,9 +52,9 @@ partial class LinqExt
 
             var recursiveSequence = recursiveFunc(mainItem)?.SelectManyRecursive(recursiveFunc);
 
-            if (recursiveSequence == null)           
+            if (recursiveSequence == null)
                 continue;
-            
+
             foreach (var recursiveItem in recursiveSequence)
                 yield return recursiveItem;
         }

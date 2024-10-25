@@ -2,5 +2,5 @@
 
 public static class PlasterSkullBlazorGlobal
 {
-    public static bool EnableRenderTracing { get; set; }    
+    public static bool EnableRenderTracing { get; set; }
 }

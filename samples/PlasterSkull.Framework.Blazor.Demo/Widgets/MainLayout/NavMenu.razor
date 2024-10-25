@@ -7,8 +7,16 @@
                 Match="NavLinkMatch.All">
         Home
     </MudNavLink>
-    <MudNavLink Href="@PsNavigationManager.DemoRoutes.ContextMenu"
-                Match="NavLinkMatch.Prefix">
-        Context Menu
-    </MudNavLink>
+    <MudNavGroup Title="Components" Expanded="true">
+        <MudNavLink Href="@PsNavigationManager.ComponentsRoutes.ContextMenu"
+                    Match="NavLinkMatch.Prefix">
+            Context Menu
+        </MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Features" Expanded="true">
+        <MudNavLink Href="@PsNavigationManager.FeaturesRoutes.RenderTracer"
+                    Match="NavLinkMatch.Prefix">
+            Render Tracer
+        </MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>

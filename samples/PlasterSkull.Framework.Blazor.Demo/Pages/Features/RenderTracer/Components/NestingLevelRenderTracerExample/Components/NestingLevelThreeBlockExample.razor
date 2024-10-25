@@ -1,0 +1,41 @@
+﻿@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-column align-center justify-center gap-2 pa-10">
+    <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudText>
+            Level 3
+        </MudText>
+
+        <MudButton Variant="Variant.Outlined"
+                   Size="Size.Small"
+                   OnClick="OnOwnButtonClick">
+            Click!
+        </MudButton>
+    </MudStack>
+
+    <MudText Typo="Typo.caption">
+        @_callbackInfoText
+    </MudText>
+</div>
+
+@code {
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private string _callbackInfoText =>
+        OnClick.HasDelegate
+            ? "Has 'OnClick' subscriber"
+            : "Hasn't 'OnClick' subscriber";
+
+    protected override void OnInitialized()
+    {
+        EnableRenderTracing();
+
+        base.OnInitialized();
+    }
+
+    private Task OnOwnButtonClick() =>
+        OnClick.InvokeAsync();
+}

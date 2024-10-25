@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+
+    <!-- Nuget -->
+
+    <PropertyGroup>
+        <PackageTags>PlasterSkull, Blazor, Server, ServerSide</PackageTags>
+        <Description>PlasterSkull extensions, helpers and other useful stuff for Blazor ServerSide</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\PlasterSkull.Framework.Blazor.Infrastructure\PlasterSkull.Framework.Blazor.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

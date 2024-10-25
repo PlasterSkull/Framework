@@ -34,9 +34,9 @@ public partial class PsIcon : PsComponentBase
 
     #region UI Fields
 
-    private Color _color => 
-        string.IsNullOrEmpty(HexColor) 
-            ? Color 
+    private Color _color =>
+        string.IsNullOrEmpty(HexColor)
+            ? Color
             : Color.Inherit;
 
     #endregion

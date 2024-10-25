@@ -1,8 +1,6 @@
-﻿using PlasterSkull.Framework.Blazor.Demo.Shared.Lib.CodeExampleCacheService;
+﻿namespace PlasterSkull.Framework.Blazor.Demo.Shared;
 
-namespace PlasterSkull.Framework.Blazor.Demo.Shared.Lib;
-
-public static class Configure
+public static partial class Configure
 {
     public static IServiceCollection ConfigureSharedLayer(this IServiceCollection services) =>
         services

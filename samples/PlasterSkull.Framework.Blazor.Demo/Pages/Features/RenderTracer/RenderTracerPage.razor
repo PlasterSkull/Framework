@@ -1,0 +1,27 @@
+﻿@using PlasterSkull.Framework.Blazor.Demo.Pages.Features.RenderTracer.Components
+@using PlasterSkull.Framework.Blazor.Demo.Pages.Features.RenderTracer.Components.NestingLevelRenderTracerExample
+
+@inherits PsComponentBase
+
+<PsCodeExamplePageContainer Title="Render Tracer">
+    <PsCodeExampleContainer Title="Basic Usage"
+                            CodeSourcesKeys="_basicUsageExampleKeys">
+        <DemoContent>
+            <BasicRenderTracerExample />
+        </DemoContent>
+    </PsCodeExampleContainer>
+
+    <PsCodeExampleContainer Title="Simulating real time events"
+                            CodeSourcesKeys="_simulatingRealTimeEventsExampleKeys">
+        <DemoContent>
+            <RealTimeEventsRenderTracerExample />
+        </DemoContent>
+    </PsCodeExampleContainer>
+
+    <PsCodeExampleContainer Title="Simulating real time events"
+                            CodeSourcesKeys="_nestingLevelEventsExampleKeys">
+        <DemoContent>
+            <NestingLevelRenderTracerExample />
+        </DemoContent>
+    </PsCodeExampleContainer>
+</PsCodeExamplePageContainer>

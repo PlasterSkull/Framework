@@ -1,11 +1,9 @@
 ﻿using Markdig;
 using Markdown.ColorCode;
-using PlasterSkull.Framework.Blazor.Demo.Shared.Lib.CodeExampleCacheService.Models;
-using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Reflection;
 
-namespace PlasterSkull.Framework.Blazor.Demo.Shared.Lib.CodeExampleCacheService.Impl;
+namespace PlasterSkull.Framework.Blazor.Demo.Shared;
 
 internal sealed class CodeExampleCacheService : ICodeExampleCacheService
 {
@@ -20,12 +18,19 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
 
     static CodeExampleCacheService()
     {
-        s_resourceFilesMap = Assembly.GetExecutingAssembly()
+        _codeExampleMap = Assembly.GetExecutingAssembly()
             .GetManifestResourceNames()
             .Where(f => f.EndsWith(".razor.md"))
+            .Select(f => (
+                Key: new CodeExampleKey(f.Split('.').TakeLast(3).ElementAt(0)),
+                ResourcePath: f))
             .ToFrozenDictionary(
-                f => string.Join('.', f.Split('.').TakeLast(3)),
-                f => f);
+                f => f.Key,
+                f => new CodeExampleKeeper
+                {
+                    Key = f.Key,
+                    ResourcePath = f.ResourcePath,
+                });
     }
 
     public CodeExampleCacheService(
@@ -37,7 +42,7 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
 
         _sharedPipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
-            .UseColorCode()
+            .UseColorCode(defaultLanguageId: "c#")
             .Build();
     }
 
@@ -45,39 +50,36 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
 
     #region Fields
 
-    private static readonly FrozenDictionary<string, string> s_resourceFilesMap;
+    private static readonly FrozenDictionary<CodeExampleKey, CodeExampleKeeper> _codeExampleMap;
 
     private readonly MarkdownPipeline _sharedPipeline;
-    private readonly ConcurrentDictionary<string, CodeExampleKeeper> _codeExampleKeepers = new();
 
     #endregion
 
     #region Public
 
-    public async ValueTask<MarkupString> GetAsync(string key, CancellationToken ct = default)
+    public async ValueTask<MarkupString> GetAsync(CodeExampleKey key, CancellationToken ct = default)
     {
-        if (_codeExampleKeepers.TryGetValue(key, out var codeExampleKeeper))
+        if (!_codeExampleMap.TryGetValue(key, out var codeExampleKeeper))
         {
-            await codeExampleKeeper.Locker.WaitAsync(ct);
+            LogMissedResource();
+            return default;
+        }
+
+        await codeExampleKeeper.Locker.WaitAsync(ct);
+
+        if (codeExampleKeeper.IsLoadingTriggered)
+        {
             codeExampleKeeper.Locker.Release();
 
             return codeExampleKeeper.MarkupString;
         }
 
-        var newCodeExampleKeeper = new CodeExampleKeeper();
-        _ = _codeExampleKeepers.TryAdd(key, newCodeExampleKeeper);
+        codeExampleKeeper.IsLoadingTriggered = true;
 
         try
         {
-            await newCodeExampleKeeper.Locker.WaitAsync(ct);
-
-            if (!s_resourceFilesMap.TryGetValue(key, out var resourceFileName))
-            {
-                LogMissedResource();
-                return default;
-            }
-
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceFileName);
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(codeExampleKeeper.ResourcePath);
             if (stream == null)
             {
                 LogMissedResource();
@@ -85,17 +87,17 @@ internal sealed class CodeExampleCacheService : ICodeExampleCacheService
             }
 
             using var reader = new StreamReader(stream);
-            return newCodeExampleKeeper.MarkupString = new(Markdig.Markdown.ToHtml(
+            return codeExampleKeeper.MarkupString = new(Markdig.Markdown.ToHtml(
                 await reader.ReadToEndAsync(ct),
                 _sharedPipeline));
         }
-        catch(Exception ex) 
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Error while trying getting markup string");
         }
         finally
         {
-            newCodeExampleKeeper.Locker.Release();
+            codeExampleKeeper.Locker.Release();
         }
 
         return default;

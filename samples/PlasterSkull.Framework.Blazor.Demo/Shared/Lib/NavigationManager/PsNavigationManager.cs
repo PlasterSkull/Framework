@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using BlazorNavigationManager = Microsoft.AspNetCore.Components.NavigationManager;
 
 namespace PlasterSkull.Framework.Blazor.Demo.Shared.Lib.NavigationManager;
 

@@ -1,0 +1,74 @@
+﻿@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-column align-center justify-center gap-2 pa-4">
+    <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudText>
+            Level 2
+        </MudText>
+
+        <MudButton Variant="Variant.Outlined"
+                   Size="Size.Small"
+                   OnClick="OnOwnButtonClick">
+            Click!
+        </MudButton>
+    </MudStack>
+    <MudText Typo="Typo.caption">
+        @_callbackInfoText
+    </MudText>
+    <MudText Typo="Typo.caption">
+        @_listenAllChildrensText
+    </MudText>
+    <MudStack Row="true">
+        <NestingLevelThreeBlockExample OnClick="OnChildrenComponentButtonClick" />
+        @if (_subscribeToAllChildren)
+        {
+            <NestingLevelThreeBlockExample OnClick="OnChildrenComponentButtonClick2" />
+        }
+        else
+        {
+            <NestingLevelThreeBlockExample />
+        }
+    </MudStack>
+</div>
+
+@code {
+
+    [Parameter] public bool RaiseChildrenEvent { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private bool _subscribeToAllChildren;
+
+    private string _callbackInfoText =>
+        OnClick.HasDelegate
+            ? "Has 'OnClick' subscriber"
+            : "Hasn't 'OnClick' subscriber";
+
+    private string _listenAllChildrensText =>
+        _subscribeToAllChildren
+            ? "Subscribed to all children components"
+            : "Subscribed only left component";
+
+    protected override void OnInitialized()
+    {
+        EnableRenderTracing();
+
+        base.OnInitialized();
+
+        _subscribeToAllChildren = RaiseChildrenEvent;
+    }
+
+    private Task OnOwnButtonClick() =>
+        OnClick.InvokeAsync();
+
+    private Task OnChildrenComponentButtonClick() =>
+        RaiseChildrenEvent
+            ? OnClick.InvokeAsync()
+            : Task.CompletedTask;
+
+    private void OnChildrenComponentButtonClick2()
+    {
+
+    }
+}

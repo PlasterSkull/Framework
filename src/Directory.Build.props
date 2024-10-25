@@ -11,12 +11,11 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <PackageVersion>0.0.1</PackageVersion>
+    <PackageVersion>0.0.2</PackageVersion>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
     <Authors>PlasterSkull</Authors>
     <Copyright>(c) PlasterSkull</Copyright>
-
 
     <PackageProjectUrl>https://github.com/PlasterSkull/Framework</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/PlasterSkull/Framework/main/build/plaster-skull.png</PackageIconUrl>

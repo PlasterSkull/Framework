@@ -19,11 +19,11 @@ public partial class PsContextMenuInstance : PsComponentBase
     private bool _isMobileSize => PsContextMenuProvider.IsMobileSize;
     private bool _isCurrent => PsContextMenuProvider.IsCurrent(Options.CallerId);
 
-    private TagId _callerId => Options.CallerId;    
+    private TagId _callerId => Options.CallerId;
     private double _x => Options.X;
     private double _y => Options.Y;
-    
-    private int _zIndex => Options.ZIndex;  
+
+    private int _zIndex => Options.ZIndex;
     private int _overlayZIndex => _zIndex - 1;
 
     private bool _hidden;
@@ -47,7 +47,7 @@ public partial class PsContextMenuInstance : PsComponentBase
     protected override StyleBuilder? ExtendStyleNameBuilder =>
         new StyleBuilder()
             .AddStyle("background-color", _mudThemeService.Palette.Surface.ToHex())
-            .AddStyle("z-index", $"{_zIndex}")
+            .AddStyle("z-index", _zIndex.ToString())
             .When(_isMobileSize, mobileSizeBuilder => mobileSizeBuilder
                 .AddStyle("max-height", "calc(100vh - 48px)"))
             .When(!_isMobileSize, desktopSizeBuilder => desktopSizeBuilder

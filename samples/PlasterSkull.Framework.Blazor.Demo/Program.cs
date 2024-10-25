@@ -4,6 +4,8 @@ using PlasterSkull.Framework.Blazor;
 using PlasterSkull.Framework.Blazor.Demo.App;
 using PlasterSkull.Framework.Blazor.Wasm;
 
+PlasterSkullBlazorGlobal.EnableRenderTracing = true;
+
 var builder = WebAssemblyHostBuilder
     .CreateDefault(args)
     .UsePlasterSkullWasmServices();

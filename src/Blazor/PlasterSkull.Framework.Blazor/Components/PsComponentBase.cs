@@ -23,7 +23,7 @@ public abstract class PsComponentBase
 
     #region Css/Style
 
-    private string _defaultRootClassName = string.Empty;
+    private readonly string _defaultRootClassName;
     private string? _customRootClassName;
 
     protected string RootClassName =>
@@ -52,13 +52,12 @@ public abstract class PsComponentBase
 
     #endregion
 
-    #region LC Methods
+    #region LC Events
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    public PsComponentBase()
     {
         _defaultRootClassName = GetType().GetRootClassName();
-
-        return base.SetParametersAsync(parameters);
+        TagId = TagId.New(RootClassName);
     }
 
     protected override bool ShouldRender()
@@ -74,8 +73,6 @@ public abstract class PsComponentBase
 
     protected override Task OnInitializedAsync()
     {
-        TagId = TagId.New(RootClassName);
-
         if (CanShowRenderInfo)
         {
             UserAttributes = new()
@@ -91,8 +88,10 @@ public abstract class PsComponentBase
     {
         base.OnParametersSet();
 
-        if (CanShowRenderInfo)
-            _renderTracer!.OnParametersSetCalled();
+        if (!CanShowRenderInfo)
+            return;
+
+        _renderTracer!.OnParametersSetCalled();
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -150,14 +149,20 @@ public abstract class PsComponentBase
         _renderTracer = new(TagId, _renderTracerOptions);
     }
 
+    protected void DisableRenderTracing() =>
+        _enableComponentRenderTracing = false;
+
     #endregion
 
     #region HandleEvent Behaviors
 
-    private bool _disableAutoRender;
+    private bool _autoRenderEnabled = true;
+
+    public void EnableAutoRender() =>
+        _autoRenderEnabled = true;
 
     public void DisableAutoRender() =>
-        _disableAutoRender = true;
+        _autoRenderEnabled = false;
 
     private async Task CustomCallStateHasChangedOnAsyncCompletion(Task task)
     {
@@ -182,7 +187,7 @@ public abstract class PsComponentBase
     Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
     {
         var task = callback.InvokeAsync(arg);
-        if (_disableAutoRender)
+        if (!_autoRenderEnabled)
             return task;
 
         var shouldAwaitTask =

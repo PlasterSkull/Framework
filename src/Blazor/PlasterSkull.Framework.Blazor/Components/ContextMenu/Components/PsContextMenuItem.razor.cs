@@ -26,7 +26,7 @@ public partial class PsContextMenuItem : PsComponentBase
 
     #endregion    
 
-    #region LC Methods
+    #region LC Events
 
     protected override void OnInitialized()
     {

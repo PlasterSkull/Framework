@@ -13,12 +13,12 @@ public sealed class PsContextMenuInstanceObserver
     #region Initialize instance logic
 
     private TaskCompletionSource<PsContextMenuInstance> _whenInstanceInitialized =
-        TaskCompletionSourceExt.New<PsContextMenuInstance>(); 
+        TaskCompletionSourceExt.New<PsContextMenuInstance>();
 
     public Task<PsContextMenuInstance> WhenInstanceInitialized =>
-        _whenInstanceInitialized.Task;  
+        _whenInstanceInitialized.Task;
 
-    internal void SetInstance(PsContextMenuInstance instance) => 
+    internal void SetInstance(PsContextMenuInstance instance) =>
         _whenInstanceInitialized.TrySetResult(instance);
 
     #endregion
@@ -28,7 +28,7 @@ public sealed class PsContextMenuInstanceObserver
     public event Func<Task>? OnClosed;
 
     internal Task NotifyClosed() =>
-        OnClosed?.Invoke() ?? 
+        OnClosed?.Invoke() ??
         Task.CompletedTask;
 
     #endregion

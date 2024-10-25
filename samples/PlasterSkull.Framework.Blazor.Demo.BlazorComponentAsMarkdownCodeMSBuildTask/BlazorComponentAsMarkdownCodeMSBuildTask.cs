@@ -1,5 +1,4 @@
-﻿using Microsoft.Build.Framework;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,7 +47,7 @@ namespace PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuil
                     result = await streamReader.ReadToEndAsync();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.LogError(ex.Message);
             }

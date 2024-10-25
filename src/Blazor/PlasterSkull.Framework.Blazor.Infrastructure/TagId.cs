@@ -19,6 +19,6 @@ public readonly struct TagId
     public static implicit operator Guid(TagId id) =>
         id.Value;
 
-    public static TagId New(string tag) => new(tag);  
+    public static TagId New(string tag) => new(tag);
     public static TagId NewWithTagFormatting(string tag) => new(tag.ToKebabCase());
 }

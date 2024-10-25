@@ -1,0 +1,18 @@
+﻿@namespace PlasterSkull.Framework.Blazor.Demo.Shared
+
+@inherits PsComponentBase
+
+<PageTitle>@_pageTitle</PageTitle>
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName page d-flex flex-column">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.h4">
+            @Title
+        </MudText>
+
+        @ChildContent
+
+    </MudContainer>
+</div>

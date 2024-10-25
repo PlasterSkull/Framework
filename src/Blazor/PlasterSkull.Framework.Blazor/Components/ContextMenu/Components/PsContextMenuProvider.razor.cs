@@ -44,12 +44,11 @@ public partial class PsContextMenuProvider
 
     #endregion
 
-    #region LC Methods
+    #region LC Events
 
     protected override void OnInitialized()
     {
         DisableAutoRender();
-        EnableRenderTracing();
 
         base.OnInitialized();
 

@@ -1,0 +1,58 @@
+﻿@using ActualLab.Async
+
+@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-column align-center justify-center">
+    @if (_callRenderTask == null)
+    {
+        <MudButton OnClick="OnStartRenderTaskButtonClick">
+            Start!
+        </MudButton>
+    }
+    else
+    {
+        <MudText>Block re-render every 500ms</MudText>
+    }
+</div>
+
+@code {
+
+    private Task? _callRenderTask;
+    private CancellationTokenSource _cancellationTokenSource = new();
+
+    protected override StyleBuilder? ExtendStyleNameBuilder =>
+        new StyleBuilder()
+            .AddStyle("width", "300px")
+            .AddStyle("height", "300px");
+
+    protected override void OnInitialized()
+    {
+        // Call before base.OnInitialized() or base.OnInitializedAsync()
+        EnableRenderTracing();
+
+        // Important to call
+        base.OnInitialized();
+    }
+
+    protected override ValueTask DisposeAsyncCore()
+    {
+        _cancellationTokenSource.CancelAndDisposeSilently();
+        _callRenderTask = null;
+
+        return base.DisposeAsyncCore();
+    }
+
+    private void OnStartRenderTaskButtonClick()
+    {
+        _callRenderTask = Task.Run(async () =>
+        {
+            while (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                await Task.Delay(500);
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+    }
+}

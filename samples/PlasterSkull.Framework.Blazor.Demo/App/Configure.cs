@@ -1,4 +1,4 @@
-﻿using PlasterSkull.Framework.Blazor.Demo.Shared.Lib;
+﻿using PlasterSkull.Framework.Blazor.Demo.Shared;
 
 namespace PlasterSkull.Framework.Blazor.Demo.App;
 

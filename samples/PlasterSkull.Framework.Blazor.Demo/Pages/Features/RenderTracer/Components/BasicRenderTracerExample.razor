@@ -1,0 +1,35 @@
+﻿@using ActualLab.Async
+
+@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-column align-center justify-center">
+    <MudButton Variant="Variant.Outlined"
+               Color="Color.Primary"
+               OnClick="OnButtonClick">
+        Click!
+    </MudButton>
+</div>
+
+@code {
+
+    protected override StyleBuilder? ExtendStyleNameBuilder =>
+        new StyleBuilder()
+            .AddStyle("width", "300px")
+            .AddStyle("height", "300px");
+
+    protected override void OnInitialized()
+    {
+        // Call before base.OnInitialized() or base.OnInitializedAsync()
+        EnableRenderTracing();
+
+        // Important to call
+        base.OnInitialized();
+    }
+
+    private void OnButtonClick()
+    {
+        // Some action
+    }
+}

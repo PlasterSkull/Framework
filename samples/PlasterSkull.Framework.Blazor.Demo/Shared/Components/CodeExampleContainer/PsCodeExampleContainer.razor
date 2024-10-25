@@ -1,0 +1,70 @@
+﻿@namespace PlasterSkull.Framework.Blazor.Demo.Shared
+
+@inherits PsComponentBase
+
+<div @attributes="UserAttributes"
+     style="@StyleName"
+     class="@ClassName d-flex flex-column w-100">
+    <div class="d-flex flex-column gap-2 mt-2">
+        <MudText Typo="Typo.h5"
+                 Class="fw-bold">
+            @Title
+        </MudText>
+
+        @ExampleInfoContent
+    </div>
+    <div style="@InnerContainerStyleName"
+         class="d-flex flex-column mt-4 rounded">
+        <MudStack Row="true"
+                  AlignItems="AlignItems.Center"
+                  Justify="Justify.Center"
+                  Class="w-100">
+            @if (_isCodeVisible && CodeSourcesKeys.Count() > 1)
+            {
+                <MudStack Row="true"
+                          AlignItems="AlignItems.Center"
+                          Justify="Justify.FlexStart"
+                          Wrap="Wrap.Wrap"
+                          Spacing="0"
+                          Class="flex-grow-1 align-self-start">
+                    @foreach (var codeExample in _codeExamplesMap)
+                    {
+                        var codeExampleKey = codeExample.Key;
+                        <MudButton Variant="GetCodeExampleTabButtonVariant(codeExampleKey)"
+                                   OnClick="_ => OnCodeExampleButtonClick(codeExampleKey)">
+                            <MudText Typo="Typo.caption">
+                                @(codeExampleKey + ".razor.md")
+                            </MudText>
+                        </MudButton>
+                    }
+                </MudStack>
+            }
+
+            <MudButton StartIcon="@_codeVisibleSwitchButtonIcon"
+                       OnClick="_ => _isCodeVisible = !_isCodeVisible"
+                       Style="min-width: 125px"
+                       Class="ms-auto">
+                @_codeVisibleSwitchButtonText
+            </MudButton>
+        </MudStack>
+
+        <div class="d-flex flex-column align-center justify-center w-100 mt-12 mb-4">
+            @DemoContent
+        </div>
+
+        <MudCollapse Expanded="_isCodeVisible"
+                     Style="@CodeContainerStyleName"
+                     Class="code-container">
+            <MudTabs @ref="_mudTabsRef"
+                     HeaderPosition="TabHeaderPosition.None">
+                @foreach (var codeExample in _codeExamplesMap)
+                {
+                    <MudTabPanel ID="codeExample.Key">
+                        @codeExample.Content
+                    </MudTabPanel>
+                }
+            </MudTabs>
+        </MudCollapse>
+    </div>
+</div>
+

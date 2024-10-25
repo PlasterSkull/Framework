@@ -1,5 +1,3 @@
-using MudBlazor;
-
 namespace PlasterSkull.Framework.Blazor.Demo.Widgets.MainLayout;
 
 public partial class MainLayout : LayoutComponentBase
