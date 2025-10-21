@@ -37,7 +37,7 @@
     <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
     <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
-    <PackageVersion Include="MudBlazor" Version="7.6.0" />
+    <PackageVersion Include="MudBlazor" Version="8.13.0" />
   </ItemGroup>
     
   <!--
