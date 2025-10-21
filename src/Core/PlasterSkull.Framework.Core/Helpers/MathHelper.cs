@@ -9,7 +9,7 @@ public static class MathHelper
     {
         if (descending)
             (nextOrder, previousOrder) = (previousOrder, nextOrder);
-
+        
         double order = true switch
         {
             _ when previousOrder != null && nextOrder != null => (previousOrder.Value + nextOrder.Value) / 2,

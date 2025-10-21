@@ -1,9 +1,11 @@
 ﻿<Project InitialTargets="CopyCustomContent" Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-  </PropertyGroup>
 
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
   <!-- Nuget -->
 
   <PropertyGroup>
@@ -26,6 +28,7 @@
   <ItemGroup>
     <PackageReference Include="ActualLab.Fusion.Blazor" />
     <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"/>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="MudBlazor" />
   </ItemGroup>

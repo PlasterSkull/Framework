@@ -1,9 +1,17 @@
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
+  <!-- -->
+
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <IsMauiProject>false</IsMauiProject>
+    <IsMauiProject Condition="$(MSBuildProjectName.Contains('.Maui'))">true</IsMauiProject>
+  </PropertyGroup>
+    
   <!-- Main -->
 
   <PropertyGroup>
+    <TargetFramework Condition="!$(IsMauiProject)">net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,7 +19,7 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <PackageVersion>0.0.2</PackageVersion>
+    <PackageVersion>0.0.3</PackageVersion>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
     <Authors>PlasterSkull</Authors>
@@ -32,4 +40,14 @@
 
   </PropertyGroup>
 
+  <!-- Global usings -->
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections" />
+    <Using Include="System.Collections.Immutable" />
+    <Using Include="System.Collections.Concurrent" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Linq" />
+  </ItemGroup>
+    
 </Project>
