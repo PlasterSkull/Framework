@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Etai.Blazor;
+namespace PlasterSkull.Framework.Blazor;
 
 public abstract class BaseValidator<T> : AbstractValidator<T> where T : class
 {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Etai.Blazor;
+namespace PlasterSkull.Framework.Blazor;
 
 public static class FluentValidatorExt
 {

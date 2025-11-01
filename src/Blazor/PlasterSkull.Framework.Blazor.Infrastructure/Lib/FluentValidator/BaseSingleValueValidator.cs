@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.Data;
 
-namespace Etai.Blazor;
+namespace PlasterSkull.Framework.Blazor;
 
 public class BaseSingleValueValidator<T> : AbstractValidator<T>
 {
