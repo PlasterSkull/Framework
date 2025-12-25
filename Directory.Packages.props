@@ -12,7 +12,7 @@
     <BlazorVersion>$(AspNetCoreVersion)</BlazorVersion>
     <MicrosoftExtensionsVersion>[9.0.3,)</MicrosoftExtensionsVersion>
     <EntityFrameworkCoreVersion>[9.0,0,)</EntityFrameworkCoreVersion>
-    <ActualLabVersion>10.3.21</ActualLabVersion>
+    <ActualLabVersion>11.3.84</ActualLabVersion>
     <XamarinAndroidLifecycle>2.8.7.1</XamarinAndroidLifecycle> 
   </PropertyGroup>
   <!-- Dependencies -->

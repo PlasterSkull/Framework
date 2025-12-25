@@ -8,7 +8,7 @@ public sealed class SafeJSObjectReference(
     SafeJSRuntime safeJSRuntime,
     IJSObjectReference jsObjectReference)
     : IJSObjectReference,
-    IHasIsDisposed
+    IHasDisposeStatus
 {
     private volatile int _isDisposed;
 

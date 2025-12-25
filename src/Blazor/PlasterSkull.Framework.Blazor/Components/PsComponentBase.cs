@@ -4,7 +4,7 @@ public abstract class PsComponentBase
     : MudComponentBase
     , IHandleEvent
     , IAsyncDisposable
-    , IHasIsDisposed
+    , IHasDisposeStatus
 {
     #region Injects
 
