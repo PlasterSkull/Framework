@@ -35,6 +35,8 @@
   <!-- Nuget -->
 
   <PropertyGroup>
+    <!-- Thx Microslop  https://github.com/dotnet/maui/issues/32769 -->
+    <IsPackable>false</IsPackable>
     <PackageTags>PlasterSkull, Blazor, Maui</PackageTags>
     <Description>PlasterSkull extensions, helpers and other useful stuff for Maui Blazor</Description>
   </PropertyGroup>
