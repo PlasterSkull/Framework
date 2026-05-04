@@ -88,8 +88,8 @@ public partial class PsCodeExampleContainer : PsComponentBase
 
     #endregion
 
-    private void OnCodeExampleButtonClick(CodeExampleKey codeExampleKey) =>
-        _mudTabsRef.ActivatePanel(codeExampleKey);
+    private Task OnCodeExampleButtonClick(CodeExampleKey codeExampleKey) =>
+        _mudTabsRef.ActivatePanelAsync(codeExampleKey);
 
     #region Nested models
 
