@@ -119,11 +119,8 @@ public abstract class PsComponentBase
 
     protected virtual ValueTask DisposeAsyncCore()
     {
-        if (_renderTracer != null)
-        {
-            _renderTracer.Dispose();
-            _renderTracer = null;
-        }
+        _renderTracer?.Dispose();
+        _renderTracer = null;
 
         return ValueTask.CompletedTask;
     }

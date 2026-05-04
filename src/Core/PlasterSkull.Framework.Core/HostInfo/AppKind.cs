@@ -1,4 +1,4 @@
-﻿namespace PlasterSkull.Framework.Blazor;
+﻿namespace PlasterSkull.Framework.Core;
 
 public enum AppKind
 {

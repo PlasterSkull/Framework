@@ -2,12 +2,12 @@
 
 partial class PsNavigationManager
 {
-    public class MainRoutes
+    public static class MainRoutes
     {
         public const string Home = "/";
     }
 
-    public class ExternalRoutes
+    public static class ExternalRoutes
     {
         public const string GitHub = "https://github.com/PlasterSkull/Framework";
     }

@@ -8,7 +8,7 @@ public static class Configure
 {
     public static IHostApplicationBuilder UsePlasterSkullServerSideServices(this IHostApplicationBuilder builder)
     {
-        var hostSettings = builder.Configuration.Get<HostSettings>() ?? 
+        var hostSettings = builder.Configuration.Get<HostSettings>() ??
             throw new Exception($"No configuration for {nameof(HostSettings)}");
 
         builder.Services.AddSingleton(s => new HostInfo

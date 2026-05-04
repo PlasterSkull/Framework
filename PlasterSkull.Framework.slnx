@@ -1,0 +1,53 @@
+<Solution>
+  <Folder Name="/Build/">
+    <File Path=".github/workflows/nuget-demo-publish.yml" />
+    <File Path=".github/workflows/nuget-publish.yml" />
+    <File Path="build/nuget-demo-packages.proj" />
+    <File Path="build/nuget-packages.proj" />
+    <File Path="build/plaster-skull.png" />
+  </Folder>
+  <Folder Name="/Samples/">
+    <Project Path="samples/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask/PlasterSkull.Framework.Blazor.Demo.BlazorComponentAsMarkdownCodeMSBuildTask.csproj" />
+    <Project Path="samples/PlasterSkull.Framework.Blazor.Demo/PlasterSkull.Framework.Blazor.Demo.csproj" />
+  </Folder>
+  <Folder Name="/Source/">
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/Source/Blazor/">
+    <Project Path="src/Blazor/PlasterSkull.Framework.Blazor.Infrastructure/PlasterSkull.Framework.Blazor.Infrastructure.csproj" />
+    <Project Path="src/Blazor/PlasterSkull.Framework.Blazor/PlasterSkull.Framework.Blazor.csproj" />
+  </Folder>
+  <Folder Name="/Source/Blazor/Fluxor/">
+    <Project Path="src/Blazor/Fluxor/PlasterSkull.Framework.Blazor.Fluxor.ErrorOr/PlasterSkull.Framework.Blazor.Fluxor.ErrorOr.csproj" />
+    <Project Path="src/Blazor/Fluxor/PlasterSkull.Framework.Blazor.Fluxor/PlasterSkull.Framework.Blazor.Fluxor.csproj" />
+  </Folder>
+  <Folder Name="/Source/Blazor/Maui/">
+    <Project Path="src/Blazor/Maui/PlasterSkull.Framework.Blazor.Maui/PlasterSkull.Framework.Blazor.Maui.csproj" />
+  </Folder>
+  <Folder Name="/Source/Blazor/ServerSide/">
+    <Project Path="src/Blazor/ServerSide/PlasterSkull.Framework.Blazor.ServerSide/PlasterSkull.Framework.Blazor.ServerSide.csproj" />
+  </Folder>
+  <Folder Name="/Source/Blazor/Wasm/">
+    <Project Path="src/Blazor/Wasm/PlasterSkull.Framework.Blazor.Wasm/PlasterSkull.Framework.Blazor.Wasm.csproj" />
+  </Folder>
+  <Folder Name="/Source/Core/">
+    <Project Path="src/Core/PlasterSkull.Framework.Core/PlasterSkull.Framework.Core.csproj" />
+    <Project Path="src/Core/PlasterSkull.Framework.ErrorOr/PlasterSkull.Framework.ErrorOr.csproj" />
+  </Folder>
+  <Folder Name="/_/">
+    <File Path=".editorconfig" />
+    <File Path=".filenesting.json" />
+    <File Path=".gitignore" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="dotnet-tools.json" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="package-lock.json" />
+    <File Path="package.json" />
+    <File Path="README.md" />
+    <File Path="tsconfig.json" />
+    <File Path="webpack.config.js" />
+  </Folder>
+</Solution>

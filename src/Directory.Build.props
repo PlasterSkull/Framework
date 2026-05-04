@@ -11,7 +11,7 @@
   <!-- Main -->
 
   <PropertyGroup>
-    <TargetFramework Condition="!$(IsMauiProject)">net9.0</TargetFramework>
+    <TargetFramework Condition="!$(IsMauiProject)">$(DotNetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -19,7 +19,7 @@
   <!-- Nuget -->
 
   <PropertyGroup>
-    <PackageVersion>0.0.5</PackageVersion>
+    <PackageVersion>0.1.0</PackageVersion>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
     <Authors>PlasterSkull</Authors>

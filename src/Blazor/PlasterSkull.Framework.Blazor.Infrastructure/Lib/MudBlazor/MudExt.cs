@@ -24,10 +24,10 @@ public static class MudExt
     }
 
     public static string GetColorCssClass(this Color color) =>
-        $"mud-{color.ToDescriptionString()}-text";
+        $"mud-{color.ExtractNameFromAttributes()}-text";
 
     public static string GetBackgroundColorCssClass(this Color color) =>
-        $"mud-{color.ToDescriptionString()}";
+        $"mud-{color.ExtractNameFromAttributes()}";
 
     public static string ToHex(this MudColor color) =>
         color.ToString(MudColorOutputFormats.Hex);

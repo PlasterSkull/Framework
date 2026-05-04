@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace PlasterSkull.Framework.Core;
+﻿namespace PlasterSkull.Framework.Core;
 
 partial class LinqExt
 {

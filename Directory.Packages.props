@@ -7,13 +7,14 @@
   <!-- Constants -->
   <PropertyGroup>
     <!-- Core packages -->
-    <AspNetCoreVersion>9.0.3</AspNetCoreVersion>
+    <AspNetCoreVersion>10.0.2</AspNetCoreVersion>
     <SystemXxxVersion>$(AspNetCoreVersion)</SystemXxxVersion>
     <BlazorVersion>$(AspNetCoreVersion)</BlazorVersion>
-    <MicrosoftExtensionsVersion>[9.0.3,)</MicrosoftExtensionsVersion>
-    <EntityFrameworkCoreVersion>[9.0,0,)</EntityFrameworkCoreVersion>
-    <ActualLabVersion>11.3.84</ActualLabVersion>
-    <XamarinAndroidLifecycle>2.8.7.1</XamarinAndroidLifecycle> 
+    <MicrosoftExtensionsVersion>[10.0.2,)</MicrosoftExtensionsVersion>
+    <EntityFrameworkCoreVersion>[10.0.2,)</EntityFrameworkCoreVersion>
+    <MauiVersion>10.0.20</MauiVersion>
+    <ActualLabVersion>12.4.6</ActualLabVersion>
+    <XamarinAndroidLifecycle>[2.9.2.1,)</XamarinAndroidLifecycle>
   </PropertyGroup>
   <!-- Dependencies -->
   <ItemGroup Label="Nupkg Versions">
@@ -21,7 +22,7 @@
     <PackageVersion Include="ActualLab.Fusion.Blazor" Version="$(ActualLabVersion)" />
     <PackageVersion Include="ErrorOr" Version="2.0.1" />
     <PackageVersion Include="Fluxor.Blazor.Web" Version="6.0.0" />
-    <PackageVersion Include="FluentValidation" Version="11.9.2" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="Markdig" Version="0.37.0" />
     <PackageVersion Include="Markdown.ColorCode" Version="2.3.0" />
     <!-- Blazor -->
@@ -32,14 +33,9 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(BlazorVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(BlazorVersion)" PrivateAssets="all" />
     <!-- Build -->
-    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="17.11.4" />
-    <!-- MAUI  -->
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
-    <PackageVersion Include="MudBlazor" Version="8.13.0" />
+    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
+    <PackageVersion Include="MudBlazor" Version="9.4.0" />
   </ItemGroup>
-    
   <!--
     MAUI is not fully compatible with centralized packages management:
     - https://github.com/dotnet/sdk/issues/27840
@@ -85,7 +81,6 @@
     <PackageVersion Include="AdamE.Firebase.iOS.Crashlytics" Version="10.29.0.1" />
     <PackageVersion Include="AdamE.Firebase.iOS.CloudMessaging" Version="10.29.0.1" />
   </ItemGroup>
-    
   <!-- Strictly non-MAUI packages -->
   <ItemGroup Label="Nupkg Extensions Versions" Condition="!$(MSBuildProjectName.Contains('.Maui'))">
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MicrosoftExtensionsVersion)" />

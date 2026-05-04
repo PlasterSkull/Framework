@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-
-namespace PlasterSkull.Framework.Blazor;
+﻿namespace PlasterSkull.Framework.Blazor;
 
 internal sealed class MudDialogServiceListener(
     IDialogService _dialogService,

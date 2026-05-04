@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace PlasterSkull.Framework.Blazor.Fluxor;
+﻿namespace PlasterSkull.Framework.Blazor.Fluxor;
 
 public interface IPsAction { }
 public interface IAllowAnonymousAction { }

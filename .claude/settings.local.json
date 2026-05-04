@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\Repositories\\\\Framework\" -Force)",
+      "Bash(Select-Object Name, Mode, LastWriteTime)",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Repositories\\\\Framework\\\\src\" -Recurse -Directory | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\('D:\\\\Repositories\\\\Framework\\\\', ''\\) })"
+    ]
+  }
+}
